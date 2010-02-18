@@ -13,8 +13,8 @@ class TestRVirtualEnv(InTempTestCase):
         main(argv)
 
         pythonrc = path.join(self.virtualenv, 'pythonrc.py')
-        pydir = path.join(self.virtualenv, 'bin')
+        pybin = path.join(self.virtualenv, 'bin', 'python.py')
 
         self.assertTrue(path.exists(pythonrc))
-        self.assertTrue(path.exists(pydir))
+        self.assertTrue(path.exists(pybin))
 

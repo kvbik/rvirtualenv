@@ -15,6 +15,6 @@ class TestGenerate(InTempTestCase):
     def test_whole_generate(self):
         generate(self.virtualenv)
 
-        pydir = path.join(self.virtualenv, 'bin')
-        self.assertTrue(path.exists(pydir))
+        pybin = path.join(self.virtualenv, 'bin', 'python.py')
+        self.assertTrue(path.exists(pybin))
 
