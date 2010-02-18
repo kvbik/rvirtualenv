@@ -2,7 +2,7 @@
 import os
 from os import path
 
-from helpers import InTempTestCase
+from helpers import InTempTestCase, get_script_path
 
 import rvirtualenv
 from rvirtualenv.generate import generate
@@ -16,6 +16,6 @@ class TestGenerate(InTempTestCase):
     def test_whole_generate(self):
         generate(self.virtualenv)
 
-        pybin = path.join(self.virtualenv, 'bin', 'python.py')
+        pybin = path.join(get_script_path(self.virtualenv), 'python.py')
         self.assertTrue(path.exists(pybin))
 
