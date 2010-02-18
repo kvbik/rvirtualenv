@@ -2,7 +2,7 @@
 import os
 from os import path
 
-from helpers_in_temp_test import InTempTestCase
+from helpers import InTempTestCase
 
 import rvirtualenv
 from rvirtualenv import main
