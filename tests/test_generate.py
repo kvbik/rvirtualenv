@@ -4,6 +4,7 @@ from os import path
 
 from helpers_in_temp_test import InTempTestCase
 
+import rvirtualenv
 from rvirtualenv.generate import generate
 
 
