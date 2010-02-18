@@ -5,7 +5,6 @@ import string
 from shutil import rmtree, copytree
 from unittest import TestCase
 from tempfile import mkdtemp
-from subprocess import Popen, PIPE
 from distutils.command.install import INSTALL_SCHEMES
 
 
