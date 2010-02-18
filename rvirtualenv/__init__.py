@@ -12,7 +12,7 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
 
-    if not len(argv):
+    if len(argv) < 2:
         raise NotImplementedError
 
     venv = argv[1]
