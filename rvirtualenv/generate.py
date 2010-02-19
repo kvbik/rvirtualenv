@@ -9,6 +9,10 @@ import rvirtualenv
 
 
 def run_setup(what, where):
+    '''
+    install couple of helper modules via distutils
+    because it creates its directory (via the correct schema)
+    '''
     oldpath = os.getcwd()
     oldprefix = sys.prefix
     oldargv = sys.argv
