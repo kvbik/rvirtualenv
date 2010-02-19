@@ -42,7 +42,24 @@ def generate(where):
     inst = path.join(base, 'template', 'inst')
     tmp = path.join(where, 'tmp_inst')
 
+    # install setup.py via distutils
     copytree(inst, tmp)
     run_setup(tmp, where)
     rmtree(tmp)
+
+    # insert correct lib dirs into pythonrc.py
+    f = open(path.join(base, 'template', 'venv', 'pythonrc.py'), 'r')
+    content = f.read()
+    f.close()
+
+    patrn = '# INSERT LIB DIRS HERE'
+    libs = '\n'.join(map(lambda x: '    %s' % x, (
+        "path.join(base, 'lib', 'python%s' % sys.version[:3], 'site-packages'), # TODO: not everywhere the same",
+    )))
+    content = content.replace(patrn, libs)
+
+    f = open(path.join(where, 'pythonrc.py'), 'w')
+    f.write(content)
+    f.write('')
+    f.close()
 

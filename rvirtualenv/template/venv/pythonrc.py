@@ -12,7 +12,7 @@ sys.prefix = base
 
 # add default python lib dirs, to the beggining of sys.path
 this_site_packages = [
-    path.join(base, 'lib', 'python%s' % sys.version[:3], 'site-packages') # TODO: not everywhere the same
+# INSERT LIB DIRS HERE
 ]
 for i in this_site_packages:
     site.addsitedir(i)
