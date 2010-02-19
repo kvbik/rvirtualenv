@@ -6,6 +6,7 @@ import sys
 from distutils.core import setup
 
 import rvirtualenv
+from rvirtualenv.helpers import get_distutils_schema
 
 
 def run_setup(what, where):
@@ -54,7 +55,8 @@ def generate(where):
 
     patrn = '# INSERT LIB DIRS HERE'
     libs = '\n'.join(map(lambda x: '    %s' % x, (
-        "path.join(base, 'lib', 'python%s' % sys.version[:3], 'site-packages'), # TODO: not everywhere the same",
+        "path.join(base, '%s'), # generated purelib" % get_distutils_schema('')['purelib'][1:],
+        "path.join(base, '%s'), # generated platlib" % get_distutils_schema('')['platlib'][1:],
     )))
     content = content.replace(patrn, libs)
 
