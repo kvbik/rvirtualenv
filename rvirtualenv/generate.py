@@ -22,11 +22,17 @@ def run_setup(what, where):
     sys.argv = ['setup.py', 'install']
     os.chdir(what)
 
+    scripts = ['bin/python.py']
+    if sys.platform == 'win32':
+        scripts.append('bin/python.bat')
+    else:
+        scripts.append('bin/python')
+
     dist = setup(
         name='rvirtualenvkeep',
         version='0.1',
         py_modules=['rvirtualenvkeep'],
-        scripts=['bin/python.py'],
+        scripts=scripts,
     )
 
     os.chdir(oldpath)
