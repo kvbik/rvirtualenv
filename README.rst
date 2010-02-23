@@ -31,7 +31,7 @@ to enable environment, do::
   # on windows
   set PYTHONPATH=c:\PYENV1;%PYTHONPATH%
 
-after that, you can call any python command (eg: pip or easy_install, ipython, ...)
+after that, you can call any python command (eg: ``pip`` or ``easy_install``, ``ipython``, ...)
 and it will have access to your virtual environment.
 
 if you don't want to mess up with environment, just call our wrapper::
@@ -43,5 +43,5 @@ if you don't want to mess up with environment, just call our wrapper::
   c:\PYENV1\Scripts\python.bat [any [params]]
 
 it should work with mod-wsgi ``python-path`` option as well,
-and you can enable it in runtime via site.addsitedir(venv_directory).
+and you can enable it in runtime via ``site.addsitedir(venv_directory)``.
 
