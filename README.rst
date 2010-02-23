@@ -2,8 +2,13 @@
 relocatable python virtual environment
 ======================================
 
-package inspired a lot by ian bicking's virtualenv but created in fashion
-that it can be relocated freely through the filesystem.
+package inspired a lot by ian bicking's virtualenv_ but created in fashion
+that it can be relocated freely through the filesystem, renamed, backuped, ...
+
+.. _virtualenv: http://bitbucket.org/ianb/virtualenv/
+
+second nice main feature is, that you can customize your python environment
+via ``{{ ENV }}/pythonrc.py`` in any curious way you want.
 
 install
 -------
@@ -68,12 +73,24 @@ because it is a build dependency.
 
 .. _setuptools_dummy: http://pypi.python.org/pypi/setuptools_dummy/
 
-i tested this package on:
+package was tested on:
 
  * archlinux with python 2.6
  * ms windows with python 2.6
  * debian lenny with python 2.5
  * debian etch with python 2.4
 
-i don't have any automated testing set up yet.
+but there is no build environment yet.
+
+todo
+----
+
+it does not have all the features, that ian's virtualenv has,
+because i don't know, which one of them are important..
+
+probably no-site-packages is important and it can be simulated
+by patching your ``pythonrc.py`` file.
+
+boot scripts even ian does not like very much and i think
+there should be some scripts or install of some package should be called.
 
