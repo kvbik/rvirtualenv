@@ -1,10 +1,16 @@
 from setuptools import setup
 
+
+VERSION = (0, 2, 0)
+__version__ = VERSION
+__versionstr__ = '.'.join(map(str, VERSION))
+
+
 setup(
     name = 'RVirtualEnv',
     description = "relocatable python virtual environment",
     url = "http://github.com/kvbik/rvirtualenv",
-    version = '0.1.0',
+    version = __versionstr__,
     author = "Jakub Vysoky",
     author_email = "jakub@borka.cz",
     license = "BSD",
