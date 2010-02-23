@@ -19,6 +19,9 @@ class InTempTestCase(TestCase):
         # new rvirtualenv
         self.virtualenv = path.join(self.directory, 'PY')
 
+        # store base dir
+        self.base = path.join(path.dirname(__file__), path.pardir)
+
     def tearDown(self):
         # go back
         os.chdir(self.oldcwd)

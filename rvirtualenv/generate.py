@@ -4,42 +4,39 @@ from os import path
 from shutil import copy, rmtree, copytree
 import sys
 from distutils.core import setup
+from subprocess import Popen, PIPE
 
 import rvirtualenv
 from rvirtualenv.helpers import get_distutils_schema
 
 
-def run_setup(what, where):
+def run_setup(base, prefix):
     '''
     install couple of helper modules via distutils
     because it creates its directory (via the correct schema)
+
+    it must be called in subprocess
+    because of possible setuptools monkeypatching
     '''
+    install = [
+        '"%s"' % sys.executable,
+        '-c',
+        """'import sys; sys.prefix="%s"; __file__="setup.py"; execfile("setup.py")'""" % prefix,
+        'install',
+    ]
+    install = ' '.join(install)
+
     oldpath = os.getcwd()
-    oldprefix = sys.prefix
-    oldargv = sys.argv
+    os.chdir(base)
 
-    sys.prefix = where
-    sys.argv = ['setup.py', 'install']
-    os.chdir(what)
-
-    scripts = ['bin/python.py']
-    if sys.platform == 'win32':
-        scripts.append('bin/python.bat')
-    else:
-        scripts.append('bin/python')
-
-    dist = setup(
-        name='rvirtualenvkeep',
-        version='0.1',
-        py_modules=['rvirtualenvkeep'],
-        scripts=scripts,
-    )
+    shell = sys.platform != 'win32'
+    stdout = stderr = PIPE
+    p = Popen(install, stdout=stdout, stderr=stderr, shell=shell)
+    stdoutdata, stderrdata = p.communicate()
 
     os.chdir(oldpath)
-    sys.prefix = oldprefix
-    sys.argv = oldargv
 
-    return dist
+    return stdoutdata, stdoutdata
 
 def generate(where):
     '''

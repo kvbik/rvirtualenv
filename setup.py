@@ -19,5 +19,6 @@ setup(
     setup_requires = [
         'setuptools_dummy',
     ],  
+    test_suite = "tests.test_all.runtests",
 )   
 

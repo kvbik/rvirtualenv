@@ -44,7 +44,7 @@ class TestRVirtualEnv(InTempTestCase):
     def test_run_python_script(self):
         self.install_venv()
 
-        script = path.join(self.oldcwd, 'tests', 'scripts','print.py')
+        script = path.join(self.base, 'tests', 'scripts','print.py')
         cmd = '%s %s %s' % (sys.executable, self.python, script)
         stdout, stderr = self.run_command(cmd)
         self.failUnlessEqual('', stdout)
@@ -52,7 +52,7 @@ class TestRVirtualEnv(InTempTestCase):
     def test_run_python_script_with_args(self):
         self.install_venv()
 
-        script = path.join(self.oldcwd, 'tests', 'scripts','print.py')
+        script = path.join(self.base, 'tests', 'scripts','print.py')
         cmd = '%s %s %s a b c' % (sys.executable, self.python, script)
         stdout, stderr = self.run_command(cmd)
         self.failUnlessEqual("['a', 'b', 'c']", stdout.strip())
@@ -60,7 +60,7 @@ class TestRVirtualEnv(InTempTestCase):
     def install_some_way(self, inst_type, inst_command='install'):
         self.install_venv()
 
-        os.chdir(path.join(self.oldcwd, 'tests', 'installs', 'venvtest-%s' % inst_type))
+        os.chdir(path.join(self.base, 'tests', 'installs', 'venvtest-%s' % inst_type))
         inst = '%s %s setup.py %s' % (sys.executable, self.python, inst_command)
         stdout, stderr = self.run_command(inst)
         os.chdir(self.oldcwd)
