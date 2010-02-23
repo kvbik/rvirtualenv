@@ -1,5 +1,6 @@
 
 import sys, os
+from os import path
 import string
 from distutils.command.install import INSTALL_SCHEMES
 
@@ -39,6 +40,7 @@ def get_distutils_schema(base, name=None, py_version=None):
     d = get_scheme_replacements(base, py_version)
     r = {}
     for k, v in schema.iteritems():
+        v = path.join(*v.split('/'))
         t = string.Template(v)
         r[k] = t.safe_substitute(d)
     return r
