@@ -18,7 +18,8 @@ def inject_pythonpath():
     '''
     insert current path into pythonpath
     '''
-    pypath = os.environ.get('PYTHONPATH', '').split(':')
+    pathdelim = sys.platform == 'win32' and ';' or ':'
+    pypath = os.environ.get('PYTHONPATH', '').split(pathdelim)
     thispath = get_this_path()
     try:
         pypath.remove('')
@@ -26,7 +27,7 @@ def inject_pythonpath():
     except ValueError:
         pass
     pypath.insert(0, thispath)
-    os.environ['PYTHONPATH'] = ':'.join(pypath)
+    os.environ['PYTHONPATH'] = pathdelim.join(pypath)
 
 def prepare_command(argv=[]):
     '''
