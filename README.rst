@@ -22,6 +22,7 @@ you can install this package from pypi::
   easy_install RVirtualEnv
 
   # or just clone this repository
+  git clone http://github.com/kvbik/rvirtualenv
 
 to create new virtual environment just call::
 
