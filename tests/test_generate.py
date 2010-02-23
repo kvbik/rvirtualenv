@@ -27,8 +27,8 @@ class TestGenerate(InTempTestCase):
 
     def test_install_venv_keep_package(self):
         inst = path.join(self.base, 'rvirtualenv', 'template', 'inst')
-        install_venv_keep_package(self.virtualenv, inst)
+        install_venv_keep_package(self.virtualenv, inst, keep=True)
 
         l = os.listdir(self.virtualenv)
-        self.assertTrue(len(l))
+        self.assertTrue(len(l) > 1)
 

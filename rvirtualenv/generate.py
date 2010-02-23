@@ -48,14 +48,14 @@ def generate(where):
     install_venv_keep_package(where, inst)
     generate_include_list(where)
 
-def install_venv_keep_package(venv_base, install_dir):
+def install_venv_keep_package(venv_base, install_dir, keep=False):
     '''
     install setup.py via distutils
     '''
     tmp = path.join(venv_base, 'tmp_inst')
     copytree(install_dir, tmp)
     run_setup(tmp, venv_base)
-    rmtree(tmp)
+    if not keep: rmtree(tmp)
 
 def generate_include_list(venv_base):
     '''
