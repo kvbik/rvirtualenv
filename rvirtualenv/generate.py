@@ -44,18 +44,30 @@ def generate(where):
     '''
     base = path.dirname(rvirtualenv.__file__)
     inst = path.join(base, 'template', 'inst')
-    tmp = path.join(where, 'tmp_inst')
 
-    # install setup.py via distutils
-    copytree(inst, tmp)
-    run_setup(tmp, where)
+    install_venv_keep_package(where, inst)
+    generate_include_list(where)
+
+def install_venv_keep_package(venv_base, install_dir):
+    '''
+    install setup.py via distutils
+    '''
+    tmp = path.join(venv_base, 'tmp_inst')
+    copytree(install_dir, tmp)
+    run_setup(tmp, venv_base)
     rmtree(tmp)
 
-    # insert correct lib dirs into pythonrc.py
+def generate_include_list(venv_base):
+    '''
+    insert correct lib dirs into pythonrc.py
+    '''
+    # load pythonrc.py file
+    base = path.dirname(rvirtualenv.__file__)
     f = open(path.join(base, 'template', 'venv', 'pythonrc.py'), 'r')
     content = f.read()
     f.close()
 
+    # replace pattern in pythonrc.py file with purelib and platlib
     patrn = '# INSERT LIB DIRS HERE'
     libs = '\n'.join(map(lambda x: '    %s' % x, (
         "path.join(base, '%s'), # generated purelib" % get_distutils_schema('')['purelib'][1:],
@@ -63,8 +75,8 @@ def generate(where):
     )))
     content = content.replace(patrn, libs)
 
-    f = open(path.join(where, 'pythonrc.py'), 'w')
+    # write it
+    f = open(path.join(venv_base, 'pythonrc.py'), 'w')
     f.write(content)
-    f.write('')
     f.close()
 

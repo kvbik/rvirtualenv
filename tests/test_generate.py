@@ -5,7 +5,7 @@ from os import path
 from helpers import InTempTestCase, get_script_path
 
 import rvirtualenv
-from rvirtualenv.generate import generate
+from rvirtualenv.generate import generate, install_venv_keep_package
 
 
 class TestGenerate(InTempTestCase):
@@ -24,4 +24,11 @@ class TestGenerate(InTempTestCase):
 
         content = open(pyrc, 'r').read()
         self.assertFalse('# INSERT LIB DIRS HERE' in content)
+
+    def test_install_venv_keep_package(self):
+        inst = path.join(self.base, 'rvirtualenv', 'template', 'inst')
+        install_venv_keep_package(self.virtualenv, inst)
+
+        l = os.listdir(self.virtualenv)
+        self.assertTrue(len(l))
 
