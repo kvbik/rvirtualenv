@@ -21,7 +21,7 @@ def run_setup(base, prefix):
     install = [
         '"%s"' % sys.executable,
         '-c',
-        '''"import sys; sys.prefix='%s'; __file__='setup.py'; execfile('setup.py')"''' % prefix,
+        '''"import sys; sys.prefix=r'%s'; __file__='setup.py'; execfile('setup.py')"''' % prefix,
         'install',
     ]
     install = ' '.join(install)
