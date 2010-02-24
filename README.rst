@@ -89,9 +89,9 @@ todo
 it does not have all the features, that ian's virtualenv has,
 because i don't know, which one of them are important..
 
-probably no-site-packages is important and it can be simulated
-by patching your ``pythonrc.py`` file.
+probably ``no-site-packages`` is important and it can be simulated
+by patching your ``pythonrc.py`` file right now.
 
-boot scripts even ian does not like very much and i think
-there should be some scripts or install of some package should be called.
+``boot scripts`` even ian does not like very much and i think
+there should be some init scripts only or installation of some package should be called.
 
