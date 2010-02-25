@@ -1,0 +1,11 @@
+
+* investigate and improve site.py execution
+
+* what if there are more venvs on pythonpath
+
+* add some testcase with easy_install
+
+* docs improvement via @carljm
+
+* ...
+
