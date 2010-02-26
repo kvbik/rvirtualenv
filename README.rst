@@ -8,7 +8,7 @@ that it can be relocated freely through the filesystem, renamed, backuped, ...
 .. _virtualenv: http://bitbucket.org/ianb/virtualenv/
 
 second nice main feature is, that you can customize your python environment
-via ``{{ ENV }}/pythonrc.py`` in any curious way you want.
+via ``{{ENV}}/pythonrc.py`` in any curious way you want.
 
 install
 -------
@@ -82,6 +82,18 @@ package was tested on:
  * debian etch with python 2.4
 
 but there is no build environment yet.
+
+why
+---
+
+main reasons why this package came into existence::
+
+ * it does not copy python binary
+ * it does not symlink core python libraries
+ * you can just set up PYTHONPATH env variable
+   and you can use any system-wide command (eg: easy_install, pip)
+ * you can tune ``pythonrc.py`` file to your needs
+   in any curious ways (useful for debugging/testing)
 
 todo
 ----
