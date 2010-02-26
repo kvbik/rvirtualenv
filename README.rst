@@ -86,7 +86,7 @@ but there is no build environment yet.
 why
 ---
 
-main reasons why this package came into existence::
+main reasons why this package came into existence:
 
  * it does not copy python binary
  * it does not symlink core python libraries
