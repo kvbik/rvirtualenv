@@ -1,5 +1,7 @@
 
+import os
 import sys
+from os import path
 
 from rvirtualenv.copy import copy
 from rvirtualenv.generate import generate
@@ -20,7 +22,7 @@ def main(argv=None):
     if len(argv) < 2:
         raise NotImplementedError
 
-    venv = argv[1]
+    venv = path.join(os.getcwd(), argv[1])
 
     copy(venv)
     generate(venv)
