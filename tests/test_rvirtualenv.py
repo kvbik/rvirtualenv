@@ -17,17 +17,39 @@ class TestRVirtualEnv(InTempTestCase):
 
         self.python = path.join(get_script_path(self.virtualenv), 'python.py')
 
+    def install_venv_in_isolation(self, virtualenv=None):
+        '''
+        install rvirtualenv itself, but do it in subprocess,
+        because of possible interaction with other imported libraries
+        (eg: setuptools and its monkeypatching)
+        '''
+        if virtualenv is None: virtualenv = self.virtualenv
+        cmd = ('''%s -c "import sys; sys.path.insert(0, '%s'); '''
+               '''from rvirtualenv import main; main([None, '%s'])"''') % \
+                (sys.executable, self.base, virtualenv)
+        stdout, stderr = self.run_command(cmd)
+        self.failUnlessEqual('', stdout.strip())
+        self.failUnlessEqual('', stderr.strip())
+
     def install_venv(self):
         argv = [None, self.virtualenv]
         main(argv)
 
-    def test_whole_rvirtualenv_command(self):
-        self.install_venv()
+    def run_rvirtualenv_command(self, virtualenv):
+        os.chdir(self.directory)
+        self.install_venv_in_isolation(virtualenv)
 
-        pythonrc = path.join(self.virtualenv, 'pythonrc.py')
-
+        pythonrc = path.join(virtualenv, 'pythonrc.py')
         self.assertTrue(path.exists(pythonrc))
-        self.assertTrue(path.exists(self.python))
+
+        python = path.join(get_script_path(virtualenv), 'python.py')
+        self.assertTrue(path.exists(python))
+
+    def test_rvirtualenv_command_creates_distdirs_given_absolute(self):
+        self.run_rvirtualenv_command(self.virtualenv)
+
+    def test_rvirtualenv_command_creates_distdirs_given_relative(self):
+        self.run_rvirtualenv_command('PY')
 
     def run_command(self, cmd):
         shell = sys.platform != 'win32'
