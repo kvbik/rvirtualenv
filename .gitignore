@@ -1,4 +1,5 @@
 *.py[co]
+.*.sw?
 
 /tests/installs/venvtest-distutils/build/
 /tests/installs/venvtest-setuptools/VEnvTest.egg-info/
