@@ -7,6 +7,10 @@ scripts = [
 ]
 if sys.platform == 'win32':
     scripts.append('bin/python.bat')
+    scripts.append('bin/activate.bat')
+    scripts.append('bin/activate.bat.template')
+    scripts.append('bin/deactivate.bat')
+    scripts.append('bin/deactivate.bat.template')
 else:
     scripts.append('bin/python')
     scripts.append('bin/activate')
