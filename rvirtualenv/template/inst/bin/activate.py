@@ -8,11 +8,10 @@ def get_subst_values():
     vname_path = path.abspath(path.join(base, path.pardir))
     vname = path.split(vname_path)[-1]
     bin_path = path.split(base)[-1]
-    prompt = vname
-    win_prompt = '(%s)' % vname
+    prompt = '(%s)' % vname
     return {
         '__VIRTUAL_PROMPT__': prompt,
-        '__VIRTUAL_WINPROMPT__': win_prompt, 
+        '__VIRTUAL_WINPROMPT__': prompt, 
         '__VIRTUAL_ENV__': vname_path,
         '__VIRTUAL_NAME__': vname,
         '__BIN_NAME__': bin_path,
