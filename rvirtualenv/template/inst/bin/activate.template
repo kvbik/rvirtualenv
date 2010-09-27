@@ -8,6 +8,11 @@ deactivate () {
         export PATH
         unset _OLD_VIRTUAL_PATH
     fi
+    if [ -n "$_OLD_VIRTUAL_PYTHONPATH" ] ; then
+        PYTHONPATH="$_OLD_VIRTUAL_PYTHONPATH"
+        export PYTHONPATH
+        unset _OLD_VIRTUAL_PYTHONPATH
+    fi
     if [ -n "$_OLD_VIRTUAL_PYTHONHOME" ] ; then
         PYTHONHOME="$_OLD_VIRTUAL_PYTHONHOME"
         export PYTHONHOME
@@ -31,6 +36,7 @@ deactivate () {
     if [ ! "$1" = "nondestructive" ] ; then
     # Self destruct!
         unset -f deactivate
+        [ "$PYTHONPATH" = ":" ] && unset PYTHONPATH
     fi
 }
 
@@ -43,6 +49,11 @@ export VIRTUAL_ENV
 _OLD_VIRTUAL_PATH="$PATH"
 PATH="$VIRTUAL_ENV/__BIN_NAME__:$PATH"
 export PATH
+
+[ $PYTHONPATH ] || PYTHONPATH=:
+_OLD_VIRTUAL_PYTHONPATH="$PYTHONPATH"
+PYTHONPATH="$VIRTUAL_ENV:$PYTHONPATH"
+export PYTHONPATH
 
 # unset PYTHONHOME if set
 # this will fail if PYTHONHOME is set to the empty string (which is bad anyway)
