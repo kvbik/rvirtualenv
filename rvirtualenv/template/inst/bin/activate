@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ $BASH_SOURCE ] && b=`dirname ${BASH_SOURCE[0]}` || b=`dirname $0`
+b=`cd $b; pwd`
+
+$b/activate.py $b/activate.template $b/_activate
+
+source $b/_activate
+

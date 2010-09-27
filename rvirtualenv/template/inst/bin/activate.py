@@ -1,0 +1,38 @@
+#!/usr/bin/python
+
+import sys
+from os import path
+
+def get_subst_values():
+    base = path.dirname(__file__)
+    vname_path = path.abspath(path.join(base, path.pardir))
+    vname = path.split(vname_path)[-1]
+    bin_path = path.split(base)[-1]
+    prompt = vname
+    win_prompt = '(%s)' % vname
+    return {
+        '__VIRTUAL_PROMPT__': prompt,
+        '__VIRTUAL_WINPROMPT__': win_prompt, 
+        '__VIRTUAL_ENV__': vname_path,
+        '__VIRTUAL_NAME__': vname,
+        '__BIN_NAME__': bin_path,
+    }
+
+def generate(ftemplt, foutput):
+    ftemplt = open(ftemplt, 'r').read()
+    for k, v in get_subst_values().iteritems():
+        ftemplt = ftemplt.replace(k, v)
+    f = open(foutput, 'w')
+    f.write(ftemplt)
+    f.close()
+
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv
+    if len(argv) < 3:
+        raise NotImplementedError
+    generate(argv[1], argv[2])
+
+if __name__ == '__main__':
+    main()
+
