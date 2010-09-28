@@ -1,4 +1,6 @@
 
-%0\..\activate.py %0\..\activate.bat.template %0\..\_activate.bat
-%0\..\_activate.bat
+@echo off
+
+%~dp0\activate.py %~dp0\activate.bat.template %~dp0\_activate.bat
+%~dp0\_activate.bat
 

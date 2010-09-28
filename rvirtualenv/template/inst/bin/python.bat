@@ -1,5 +1,5 @@
 
 @echo off
 
-call %0\..\python.py %*
+call %~dp0\python.py %*
 
