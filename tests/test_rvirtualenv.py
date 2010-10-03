@@ -3,6 +3,7 @@ import sys
 import os
 from os import path
 from subprocess import Popen, PIPE
+import textwrap
 
 from helpers import InTempTestCase, get_script_path
 
@@ -117,4 +118,30 @@ class TestRVirtualEnv(InTempTestCase):
 
     def test_install_setuptools_way(self):
         self.install_some_way('setuptools')
+
+    def test_activate_command(self):
+        activate = 'source PY/bin/activate'
+        deactivate = 'deactivate'
+        run_command = 'sh run'
+        run_file = 'run'
+        shebang = '#!/bin/sh'
+        if sys.platform == 'win32':
+            activate = 'PY/Script/activate.bat'
+            deactivate = 'deactivate.bat'
+            run_command = 'run.bat'
+            run_file = 'run.bat'
+            shebang = '@echo off'
+        os.chdir(self.directory)
+        self.install_venv()
+        f = open(run_file, 'w')
+        f.write(textwrap.dedent('''
+            %s
+            %s
+            python -c "import rvirtualenvkeep; print rvirtualenvkeep.__file__"
+            %s
+        ''' % (shebang, activate, deactivate)).strip())
+        f.close()
+        stdout, stderr = self.run_command(run_command)
+        self.assertTrue(stdout.strip().startswith(self.directory))
+        self.assertTrue(stdout.strip().endswith('rvirtualenvkeep.pyc'))
 
