@@ -126,8 +126,8 @@ class TestRVirtualEnv(InTempTestCase):
         run_file = 'run'
         shebang = '#!/bin/sh'
         if sys.platform == 'win32':
-            activate = 'PY/Script/activate.bat'
-            deactivate = 'deactivate.bat'
+            activate = 'call PY\\Scripts\\activate.bat'
+            deactivate = 'call deactivate.bat'
             run_command = 'run.bat'
             run_file = 'run.bat'
             shebang = '@echo off'
