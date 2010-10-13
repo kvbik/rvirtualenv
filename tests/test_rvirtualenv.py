@@ -25,8 +25,8 @@ class TestRVirtualEnv(InTempTestCase):
         (eg: setuptools and its monkeypatching)
         '''
         if virtualenv is None: virtualenv = self.virtualenv
-        cmd = ('''%s -c "import sys; sys.path.insert(0, '%s'); '''
-               '''from rvirtualenv import main; main([None, '%s'])"''') % \
+        cmd = ('''%s -c "import sys; sys.path.insert(0, r'%s'); '''
+               '''from rvirtualenv import main; main([None, r'%s'])"''') % \
                 (sys.executable, self.base, virtualenv)
         stdout, stderr = self.run_command(cmd)
         self.failUnlessEqual('', stdout.strip())
@@ -83,8 +83,10 @@ class TestRVirtualEnv(InTempTestCase):
     def install_some_way(self, inst_type, inst_command='install'):
         self.install_venv()
 
-        os.chdir(path.join(self.base, 'tests', 'installs', 'venvtest-%s' % inst_type))
-        inst = '%s %s setup.py %s' % (sys.executable, self.python, inst_command)
+        os.chdir(path.join(self.base, 'tests', 'installs',
+            'venvtest-%s' % inst_type))
+        inst = '%s %s setup.py %s' % \
+                (sys.executable, self.python, inst_command)
         stdout, stderr = self.run_command(inst)
         os.chdir(self.oldcwd)
 
@@ -95,12 +97,14 @@ class TestRVirtualEnv(InTempTestCase):
 
         self.failUnlessEqual('', stderr)
 
-        cmd = '%s %s -c "import venvtest; print venvtest.__versionstr__"' % (sys.executable, self.python)
+        cmd = '%s %s -c "import venvtest; print venvtest.__versionstr__"' % \
+                (sys.executable, self.python)
         stdout, stderr = self.run_command(cmd)
         expected = '0.1.0'
         self.failUnlessEqual(expected, stdout.strip())
 
-        cmd = '%s %s -c "import venvtest; print venvtest.__file__"' % (sys.executable, self.python)
+        cmd = '%s %s -c "import venvtest; print venvtest.__file__"' % \
+                (sys.executable, self.python)
         stdout, stderr = self.run_command(cmd)
         a = len(self.virtualenv)
         b = -len('venvtest.pyc')
@@ -119,18 +123,26 @@ class TestRVirtualEnv(InTempTestCase):
     def test_install_setuptools_way(self):
         self.install_some_way('setuptools')
 
-    def test_activate_command(self):
+    def activate_command_unix(self):
         activate = 'source PY/bin/activate'
         deactivate = 'deactivate'
         run_command = 'sh run'
         run_file = 'run'
         shebang = '#!/bin/sh'
-        if sys.platform == 'win32':
-            activate = 'call PY\\Scripts\\activate.bat'
-            deactivate = 'call deactivate.bat'
-            run_command = 'run.bat'
-            run_file = 'run.bat'
-            shebang = '@echo off'
+        self.activate_command(activate, deactivate,
+            run_command, run_file, shebang)
+
+    def activate_command_win(self):
+        activate = 'call PY\\Scripts\\activate.bat'
+        deactivate = 'call deactivate.bat'
+        run_command = 'run.bat'
+        run_file = 'run.bat'
+        shebang = '@echo off'
+        self.activate_command(activate, deactivate,
+            run_command, run_file, shebang)
+
+    def activate_command(self, activate, deactivate,
+            run_command, run_file, shebang):
         os.chdir(self.directory)
         self.install_venv()
         f = open(run_file, 'w')
@@ -142,6 +154,12 @@ class TestRVirtualEnv(InTempTestCase):
         ''' % (shebang, activate, deactivate)).strip())
         f.close()
         stdout, stderr = self.run_command(run_command)
+        self.failUnlessEqual(stderr.strip(), '')
         self.assertTrue(stdout.strip().startswith(self.directory))
         self.assertTrue(stdout.strip().endswith('rvirtualenvkeep.pyc'))
 
+    def test_activate_command(self):
+        if sys.platform == 'win32':
+            self.activate_command_win()
+        else:
+            self.activate_command_unix()
