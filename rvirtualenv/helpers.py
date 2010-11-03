@@ -18,7 +18,7 @@ def get_scheme_replacements(base, py_version=None):
     returns dictionary for replacement of $base, $py_version_short & so on..
     '''
     if py_version is None:
-        py_version = (string.split(sys.version))[0]
+        py_version = sys.version.split()[0]
     d = dict(
         base=base,
         usersite=base,
@@ -39,7 +39,7 @@ def get_distutils_schema(base, name=None, py_version=None):
     schema = INSTALL_SCHEMES[name]
     d = get_scheme_replacements(base, py_version)
     r = {}
-    for k, v in schema.iteritems():
+    for k, v in schema.items():
         v = path.join(*v.split('/'))
         t = string.Template(v)
         r[k] = t.safe_substitute(d)
