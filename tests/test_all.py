@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 
+'''
+poor man's nosetests
+'''
+
 import sys
 from os import path
-import nose
+import unittest
 
 
 def runtests():
@@ -14,14 +18,17 @@ def runtests():
         sys.path.remove(base)
     sys.path.insert(0, base)
 
-    # hack with argv if we are called from setup.py
-    argv = sys.argv[:]
-    if 'setup.py' in argv[0] and len(argv) >= 2 and argv[1] == 'test':
-        argv = [argv[0]] + argv[2:]
-    oldargv = sys.argv[:]
-    sys.argv = argv
+    r = unittest.TextTestRunner()
+    l = unittest.TestLoader()
 
-    nose.run_exit(defaultTest=base)
+    m = [
+        'tests.test_copy',
+        'tests.test_generate',
+        'tests.test_rvirtualenv',
+    ]
+
+    result = r.run(l.loadTestsFromNames(m))
+    sys.exit(not result.wasSuccessful())
 
 if __name__ == '__main__':
     runtests()
