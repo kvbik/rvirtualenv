@@ -55,12 +55,12 @@ class TestRVirtualEnv(InTempTestCase):
     def run_command(self, cmd):
         shell = sys.platform != 'win32'
         p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=shell)
-        return p.communicate()
+        return map(lambda b: b.decode('ascii'), p.communicate())
 
     def test_python_itself(self):
         self.install_venv()
 
-        cmd = '%s %s -c "print 128"' % (sys.executable, self.python)
+        cmd = '%s %s -c "print(128)"' % (sys.executable, self.python)
         stdout, stderr = self.run_command(cmd)
         self.failUnlessEqual('128', stdout.strip())
 
@@ -90,20 +90,20 @@ class TestRVirtualEnv(InTempTestCase):
         stdout, stderr = self.run_command(inst)
         os.chdir(self.oldcwd)
 
-        print 'stdout:'
-        print stdout
-        print 'stderr:'
-        print stderr
+        print('stdout:')
+        print(stdout)
+        print('stderr:')
+        print(stderr)
 
         self.failUnlessEqual('', stderr)
 
-        cmd = '%s %s -c "import venvtest; print venvtest.__versionstr__"' % \
+        cmd = '%s %s -c "import venvtest; print(venvtest.__versionstr__)"' % \
                 (sys.executable, self.python)
         stdout, stderr = self.run_command(cmd)
         expected = '0.1.0'
         self.failUnlessEqual(expected, stdout.strip())
 
-        cmd = '%s %s -c "import venvtest; print venvtest.__file__"' % \
+        cmd = '%s %s -c "import venvtest; print(venvtest.__file__)"' % \
                 (sys.executable, self.python)
         stdout, stderr = self.run_command(cmd)
         a = len(self.virtualenv)
@@ -112,7 +112,7 @@ class TestRVirtualEnv(InTempTestCase):
         mod = stdout.strip()[b:]
         pth = stdout.strip()[a:b]
 
-        print pth
+        print(pth)
 
         self.failUnlessEqual(self.virtualenv, env)
         self.failUnlessEqual('venvtest.pyc', mod)
@@ -149,7 +149,7 @@ class TestRVirtualEnv(InTempTestCase):
         f.write(textwrap.dedent('''
             %s
             %s
-            python -c "import rvirtualenvkeep; print rvirtualenvkeep.__file__"
+            python -c "import rvirtualenvkeep; print(rvirtualenvkeep.__file__)"
             %s
         ''' % (shebang, activate, deactivate)).strip())
         f.close()
