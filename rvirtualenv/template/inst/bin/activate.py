@@ -19,7 +19,7 @@ def get_subst_values():
 
 def generate(ftemplt, foutput):
     ftemplt = open(ftemplt, 'r').read()
-    for k, v in get_subst_values().iteritems():
+    for k, v in get_subst_values().items():
         ftemplt = ftemplt.replace(k, v)
     f = open(foutput, 'w')
     f.write(ftemplt)
