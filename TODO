@@ -1,4 +1,21 @@
 
+for next release:
+
+* source bin/activate
+  almost ready, as well on windows but there is still one test failing
+* python3 support (thanks al3x)
+  works, but as there are still so few packages, it was tricky to run tests
+* virtualenv inheritance
+  if you create one venv inside another it should take precedence
+  not ready yet, try:
+    ./rvirtualenv.py PY1
+    source PY1/bin/activate
+    ./rvirtualenv.py PY2
+    ./PY2/bin/python -c "import rvirtualenvkeep; print(rvirtualenvkeep.__file__)"
+  it should return rvirtualenvkeep from PY2
+
+------------
+
 * investigate and improve site.py execution
 
 * what if there are more venvs on pythonpath
