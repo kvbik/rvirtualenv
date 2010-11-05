@@ -72,7 +72,9 @@ def generate_include_list(venv_base):
     libs = '\n'.join(map(lambda x: '    %s' % x, (
         "path.join(base, '%s'), # generated purelib" % get_distutils_schema('')['purelib'][1:],
         "path.join(base, '%s'), # generated platlib" % get_distutils_schema('')['platlib'][1:],
-    )))
+        "# sys.path from original python environment",
+        ) + tuple(map(lambda x: "'%s'," % x, set(sys.path)))
+    ))
     content = content.replace(patrn, libs)
 
     # write it
