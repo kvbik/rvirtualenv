@@ -108,7 +108,7 @@ class TestRVirtualEnv(InTempTestCase):
                 (sys.executable, self.python)
         stdout, stderr = self.run_command(cmd)
         a = len(self.virtualenv)
-        b = -len('venvtest.pyc')
+        b = -len('venvtest.pyX')
         env = stdout.strip()[:a]
         mod = stdout.strip()[b:]
         pth = stdout.strip()[a:b]
@@ -116,12 +116,17 @@ class TestRVirtualEnv(InTempTestCase):
         logging.info(pth)
 
         self.failUnlessEqual(self.virtualenv, env)
-        self.failUnlessEqual('venvtest.pyc', mod)
+        # it could be *.py or *.pyc - depending on distro
+        self.failUnlessEqual('venvtest.py', mod.strip('c/'))
 
     def test_install_distutils_way(self):
         self.install_some_way('distutils')
 
     def test_install_setuptools_way(self):
+        '''
+        this test should skip if you don't have setuptools
+        but other tests could fail too..
+        '''
         self.install_some_way('setuptools')
 
     def activate_command_unix(self):
@@ -157,7 +162,11 @@ class TestRVirtualEnv(InTempTestCase):
         stdout, stderr = self.run_command(run_command)
         self.failUnlessEqual(stderr.strip(), '')
         self.assertTrue(stdout.strip().startswith(self.directory))
-        self.assertTrue(stdout.strip().endswith('rvirtualenvkeep.pyc'))
+        self.assertTrue(
+            stdout.strip().endswith('rvirtualenvkeep.pyo') or \
+            stdout.strip().endswith('rvirtualenvkeep.pyc') or \
+            stdout.strip().endswith('rvirtualenvkeep.py')
+            )
 
     def test_activate_command(self):
         if sys.platform == 'win32':
