@@ -15,7 +15,7 @@ this_site_packages = [
 # INSERT LIB DIRS HERE
 ]
 
-for i in reversed(this_site_packages):
+for i in this_site_packages:
     if i not in sys.path:
         site.addsitedir(i)
 

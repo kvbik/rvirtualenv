@@ -13,6 +13,7 @@ for next release:
     ./rvirtualenv.py PY2
     ./PY2/bin/python -c "import rvirtualenvkeep; print(rvirtualenvkeep.__file__)"
   it should return rvirtualenvkeep from PY2
+  .. i repaired this one, but sys.path is ugly sometimes now..
 
 ------------
 
