@@ -4,6 +4,7 @@ import os
 from os import path
 from subprocess import Popen, PIPE
 import textwrap
+import logging
 
 from helpers import InTempTestCase, get_script_path
 
@@ -90,10 +91,10 @@ class TestRVirtualEnv(InTempTestCase):
         stdout, stderr = self.run_command(inst)
         os.chdir(self.oldcwd)
 
-        print('stdout:')
-        print(stdout)
-        print('stderr:')
-        print(stderr)
+        logging.info('stdout:')
+        logging.info(stdout)
+        logging.info('stderr:')
+        logging.info(stderr)
 
         self.failUnlessEqual('', stderr)
 
@@ -112,7 +113,7 @@ class TestRVirtualEnv(InTempTestCase):
         mod = stdout.strip()[b:]
         pth = stdout.strip()[a:b]
 
-        print(pth)
+        logging.info(pth)
 
         self.failUnlessEqual(self.virtualenv, env)
         self.failUnlessEqual('venvtest.pyc', mod)
