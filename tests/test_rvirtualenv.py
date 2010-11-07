@@ -117,7 +117,7 @@ class TestRVirtualEnv(InTempTestCase):
 
         self.failUnlessEqual(self.virtualenv, env)
         # it could be *.py or *.pyc - depending on distro
-        self.failUnlessEqual('venvtest.py', mod.strip('c/'))
+        self.failUnlessEqual('venvtest.py', mod.strip(r'\c/'))
 
     def test_install_distutils_way(self):
         self.install_some_way('distutils')
