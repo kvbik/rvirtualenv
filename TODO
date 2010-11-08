@@ -1,4 +1,12 @@
 
+test for install with pip and not uninstalling
+some sys (previous venv) package
+
+test for building something binary
+
+
+------------
+
 for next release:
 
 * source bin/activate
@@ -14,6 +22,7 @@ for next release:
     ./PY2/bin/python -c "import rvirtualenvkeep; print(rvirtualenvkeep.__file__)"
   it should return rvirtualenvkeep from PY2
   .. i repaired this one, but sys.path is ugly sometimes now..
+
 
 ------------
 
