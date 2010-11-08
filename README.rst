@@ -117,8 +117,8 @@ there should be some init scripts only or installation of some package should be
 changelog
 ---------
 
-0.2.2-dev
-~~~~~~~~~
+0.2.3
+~~~~~
 
 * fixing problems with relative path when crating virtualenv
 * more compatibility with pip and uninstalling system packages
