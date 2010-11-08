@@ -24,6 +24,13 @@ you can install this package from pypi::
   # or just clone this repository
   git clone http://github.com/kvbik/rvirtualenv
 
+you should definitely try development version,
+there is python3_ (it really works, tests are passing)
+and support and venvwrapper_ (emulating ``source PY/bin/activate``)
+
+.. _venvwrapper: http://www.doughellmann.com/projects/virtualenvwrapper/
+.. _python3: http://diveintopython3.org/
+
 to create new virtual environment just call::
 
   virtualenv ~/PYENV1
@@ -106,4 +113,19 @@ by patching your ``pythonrc.py`` file right now.
 
 ``boot scripts`` even ian does not like very much and i think
 there should be some init scripts only or installation of some package should be called.
+
+changelog
+---------
+
+0.2.3
+~~~~~
+
+* fixing problems with relative path when crating virtualenv
+* more compatibility with pip and uninstalling system packages
+* tests passing with distribute (setuptools fork)
+
+0.2.2 
+~~~~~
+
+initial version
 
