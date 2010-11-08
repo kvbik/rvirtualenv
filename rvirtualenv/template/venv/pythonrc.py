@@ -7,6 +7,8 @@ import site
 
 base = path.abspath(path.dirname(__file__))
 
+# real_prefix is useful for pip and uninstalling system pkgs
+sys.real_prefix = sys.prefix
 # python uses this almost everywhere
 sys.prefix = base
 
