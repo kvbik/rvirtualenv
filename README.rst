@@ -24,6 +24,13 @@ you can install this package from pypi::
   # or just clone this repository
   git clone http://github.com/kvbik/rvirtualenv
 
+you should definitely try development version,
+there is python3_ (it really works, tests are passing)
+and support and venvwrapper_ (emulating ``source PY/bin/activate``)
+
+.. _venvwrapper: http://www.doughellmann.com/projects/virtualenvwrapper/
+.. _python3: http://diveintopython3.org/
+
 to create new virtual environment just call::
 
   virtualenv ~/PYENV1
