@@ -198,7 +198,7 @@ class TestRVirtualEnv(InTempTestCase):
         py = ('import os', 'os.system("echo 128")')
         self.something_is_bad_on_win32_and_subprocess(py)
 
-    def test_something_is_bad_on_win32_and_os_popen(self):
+    def test_something_is_bad_on_win32_and_popen(self):
         py = (
             'from subprocess import Popen, PIPE',
             'p = Popen("echo 128", shell=True)',
