@@ -12,7 +12,6 @@ import rvirtualenv
 from rvirtualenv import main
 
 
-
 class TestRVirtualEnv(InTempTestCase):
     def setUp(self):
         super(TestRVirtualEnv, self).setUp()
@@ -173,3 +172,24 @@ class TestRVirtualEnv(InTempTestCase):
             self.activate_command_win()
         else:
             self.activate_command_unix()
+
+    def test_something_is_bad_on_win32_and_subprocess(self):
+        if sys.platform == 'win32':
+            name = 'pokus.bat'
+            bat = ('@echo off', 'pokus.py',)
+        else:
+            name = './pokus'
+            bat = ('#!/bin/sh', './pokus.py',)
+
+        py = ('import os', 'os.system("echo 128")')
+        write = '\n'.join(py)
+        f = open('pokus.py', 'w'); f.write(write); f.close()
+
+        write = '\n'.join(bat)
+        f = open(name, 'w'); f.write(write); f.close()
+
+        shell = False
+        p = Popen(name, stdout=PIPE, stderr=PIPE, shell=shell)
+        stdout, stderr = map(lambda b: b.decode('ascii'), p.communicate())
+        self.failUnlessEqual('128', stdout.strip())
+
