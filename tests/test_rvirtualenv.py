@@ -176,10 +176,12 @@ class TestRVirtualEnv(InTempTestCase):
     def test_something_is_bad_on_win32_and_subprocess(self):
         if sys.platform == 'win32':
             name = 'pokus.bat'
+            command = name
             bat = ('@echo off', 'pokus.py',)
         else:
-            name = './pokus'
-            bat = ('#!/bin/sh', './pokus.py',)
+            name = 'pokus.sh'
+            command = 'sh pokus.sh'
+            bat = ('#!/bin/sh', 'python pokus.py',)
 
         py = ('import os', 'os.system("echo 128")')
         write = '\n'.join(py)
@@ -188,8 +190,8 @@ class TestRVirtualEnv(InTempTestCase):
         write = '\n'.join(bat)
         f = open(name, 'w'); f.write(write); f.close()
 
-        shell = False
-        p = Popen(name, stdout=PIPE, stderr=PIPE, shell=shell)
+        shell = True
+        p = Popen(command, stdout=PIPE, stderr=PIPE, shell=shell)
         stdout, stderr = map(lambda b: b.decode('ascii'), p.communicate())
         self.failUnlessEqual('128', stdout.strip())
 
