@@ -7,7 +7,7 @@ that it can be relocated freely through the filesystem, renamed, backuped, ...
 
 .. _virtualenv: http://bitbucket.org/ianb/virtualenv/
 
-second nice main feature is, that you can customize your python environment
+second nice feature is, that you can customize your python environment
 via ``{{ENV}}/pythonrc.py`` in any curious way you want.
 
 install
@@ -23,12 +23,9 @@ you can install this package from pypi::
   # or just clone this repository
   git clone http://github.com/kvbik/rvirtualenv
 
-you should definitely try development version,
-there is python3_ (it really works, tests are passing)
-and support and venvwrapper_ (emulating ``source PY/bin/activate``)
+you should definitely `try development version`__
 
-.. _venvwrapper: http://www.doughellmann.com/projects/virtualenvwrapper/
-.. _python3: http://diveintopython3.org/
+__ changelog_
 
 to create new virtual environment just call::
 
@@ -116,6 +113,17 @@ there should be some init scripts only or installation of some package should be
 changelog
 ---------
 
+0.3-dev
+~~~~~~~
+
+* `python3`_ support - it really works, tests are passing
+* support for `virtualenv wrapper`_ (via: ``source PY/bin/activate``)
+* inherit one virtualenv to another
+* ``bin/activate`` on windows relocatable and working (but one test fail)
+
+.. _virtualenv wrapper: http://www.doughellmann.com/projects/virtualenvwrapper/
+.. _python3: http://diveintopython3.org/
+
 0.2-backports
 ~~~~~~~~~~~~~
 
@@ -124,9 +132,12 @@ changelog
 0.2.3
 ~~~~~
 
-* fixing problems with relative path when crating virtualenv
-* more compatibility with pip and uninstalling system packages
-* tests passing with distribute (setuptools fork)
+* fixing problems with relative path when creating virtualenv
+* more compatibility with pip and uninstalling system packages (``sys.real_prefix``)
+* tests passing with distribute_ (aka setuptools_ fork)
+
+.. _distribute: http://bitbucket.org/tarek/distribute/
+.. _setuptools: http://pypi.python.org/pypi/setuptools
 
 <=0.2.2
 ~~~~~~~
