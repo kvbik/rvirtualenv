@@ -18,7 +18,6 @@ you can install this package from pypi::
   pip install RVirtualEnv
 
   # or
-
   easy_install RVirtualEnv
 
   # or just clone this repository
@@ -117,6 +116,11 @@ there should be some init scripts only or installation of some package should be
 changelog
 ---------
 
+0.2-backports
+~~~~~~~~~~~~~
+
+* installing extensions into virtual environment works
+
 0.2.3
 ~~~~~
 
@@ -124,8 +128,8 @@ changelog
 * more compatibility with pip and uninstalling system packages
 * tests passing with distribute (setuptools fork)
 
-0.2.2 
-~~~~~
+<=0.2.2
+~~~~~~~
 
-initial version
+initial versions
 
