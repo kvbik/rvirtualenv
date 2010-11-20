@@ -124,6 +124,10 @@ changelog
 .. _virtualenv wrapper: http://www.doughellmann.com/projects/virtualenvwrapper/
 .. _python3: http://diveintopython3.org/
 
+0.2-backports
+~~~~~~~~~~~~~
+
+* installing extensions into virtual environment works
 
 0.2.3
 ~~~~~
@@ -135,8 +139,8 @@ changelog
 .. _distribute: http://bitbucket.org/tarek/distribute/
 .. _setuptools: http://pypi.python.org/pypi/setuptools
 
-0.2.2 
-~~~~~
+<=0.2.2
+~~~~~~~
 
-initial version
+initial versions
 
