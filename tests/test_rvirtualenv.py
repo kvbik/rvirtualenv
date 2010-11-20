@@ -173,7 +173,9 @@ class TestRVirtualEnv(InTempTestCase):
         else:
             self.activate_command_unix()
 
-    def something_is_bad_on_win32_and_subprocess(self, py):
+    def something_is_bad_on_win32_and_subprocess(self, py, command=None):
+        replace_command = command
+
         if sys.platform == 'win32':
             name = 'pokus.bat'
             command = name
@@ -182,6 +184,9 @@ class TestRVirtualEnv(InTempTestCase):
             name = 'pokus.sh'
             command = 'sh pokus.sh'
             bat = ('#!/bin/sh', 'python pokus.py',)
+
+        if replace_command is not None:
+            command = replace_command
 
         write = '\n'.join(py)
         f = open('pokus.py', 'w'); f.write(write); f.close()
@@ -205,4 +210,10 @@ class TestRVirtualEnv(InTempTestCase):
             'p.communicate()',
         )
         self.something_is_bad_on_win32_and_subprocess(py)
+
+    def test_something_is_bad_on_win32_but_this_works(self):
+        py = ('import os', 'os.system("echo 128")')
+        #command = 'call pokus.bat' # this doesn't work either
+        command = '"%s" pokus.py' % sys.executable
+        self.something_is_bad_on_win32_and_subprocess(py, command)
 
