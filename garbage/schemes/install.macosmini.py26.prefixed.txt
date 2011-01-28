@@ -1,0 +1,12 @@
+install_base: /tmp/keke
+install_data: /tmp/keke
+install_headers: /tmp/keke/include/python2.6/UNKNOWN
+install_lib: /Library/Python/2.6/site-packages/
+install_libbase: /Library/Python/2.6/site-packages
+install_path_file: 1
+install_platbase: /System/Library/Frameworks/Python.framework/Versions/2.6
+install_platlib: /System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages
+install_purelib: /Library/Python/2.6/site-packages
+install_scripts: /usr/local/bin
+install_userbase: /Users/jakub.vysoky/.local
+install_usersite: /Users/jakub.vysoky/.local/lib/python2.6/site-packages

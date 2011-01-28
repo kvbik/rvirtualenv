@@ -1,0 +1,12 @@
+install_base: /System/Library/Frameworks/Python.framework/Versions/2.6
+install_data: /System/Library/Frameworks/Python.framework/Versions/2.6
+install_headers: /System/Library/Frameworks/Python.framework/Versions/2.6/include/python2.6/UNKNOWN
+install_lib: /Library/Python/2.6/site-packages/
+install_libbase: /Library/Python/2.6/site-packages
+install_path_file: 1
+install_platbase: /System/Library/Frameworks/Python.framework/Versions/2.6
+install_platlib: /Library/Python/2.6/site-packages
+install_purelib: /Library/Python/2.6/site-packages
+install_scripts: /usr/local/bin
+install_userbase: /Users/jakub.vysoky/.local
+install_usersite: /Users/jakub.vysoky/.local/lib/python2.6/site-packages
