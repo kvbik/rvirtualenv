@@ -1,0 +1,12 @@
+install_base: c:\PYX
+install_data: c:\PYX
+install_headers: c:\PYX\Include\UNKNOWN
+install_lib: c:\PYX\Lib\site-packages\
+install_libbase: c:\PYX\Lib\site-packages
+install_path_file: 1
+install_platbase: c:\PYX
+install_platlib: c:\PYX\Lib\site-packages
+install_purelib: c:\PYX\Lib\site-packages
+install_scripts: c:\PYX\Scripts
+install_userbase: C:\Documents and Settings\kvbik\Data aplikací\Python
+install_usersite: C:\Documents and Settings\kvbik\Data aplikací\Python\Python26\site-packages

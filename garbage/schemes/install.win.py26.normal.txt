@@ -1,0 +1,12 @@
+install_base: C:\Program Files\Python26
+install_data: C:\Program Files\Python26
+install_headers: C:\Program Files\Python26\Include\UNKNOWN
+install_lib: C:\Program Files\Python26\Lib\site-packages\
+install_libbase: C:\Program Files\Python26\Lib\site-packages
+install_path_file: 1
+install_platbase: C:\Program Files\Python26
+install_platlib: C:\Program Files\Python26\Lib\site-packages
+install_purelib: C:\Program Files\Python26\Lib\site-packages
+install_scripts: C:\Program Files\Python26\Scripts
+install_userbase: C:\Documents and Settings\kvbik\Data aplikací\Python
+install_usersite: C:\Documents and Settings\kvbik\Data aplikací\Python\Python26\site-packages
