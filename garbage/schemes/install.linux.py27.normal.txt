@@ -1,0 +1,12 @@
+install_base: /usr
+install_data: /usr
+install_headers: /usr/include/python2.7/UNKNOWN
+install_lib: /usr/lib/python2.7/site-packages/
+install_libbase: /usr/lib/python2.7/site-packages
+install_path_file: 1
+install_platbase: /usr
+install_platlib: /usr/lib/python2.7/site-packages
+install_purelib: /usr/lib/python2.7/site-packages
+install_scripts: /usr/bin
+install_userbase: /home/kvbik/.local
+install_usersite: /home/kvbik/.local/lib/python2.7/site-packages
