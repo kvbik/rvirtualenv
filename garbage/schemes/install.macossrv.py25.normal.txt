@@ -1,0 +1,10 @@
+install_base: /System/Library/Frameworks/Python.framework/Versions/2.5
+install_data: /System/Library/Frameworks/Python.framework/Versions/2.5
+install_headers: /System/Library/Frameworks/Python.framework/Versions/2.5/include/python2.5/UNKNOWN
+install_lib: /Library/Python/2.5/site-packages/
+install_libbase: /Library/Python/2.5/site-packages
+install_path_file: 1
+install_platbase: /System/Library/Frameworks/Python.framework/Versions/2.5
+install_platlib: /Library/Python/2.5/site-packages
+install_purelib: /Library/Python/2.5/site-packages
+install_scripts: /usr/local/bin
