@@ -40,3 +40,8 @@ i.finalize_options()
 /usr/bin/python -c "import sys; sys.prefix=r'/tmp/keke'; __file__='setup.py'; execfile('setup.py')" install
 
 
+-- asi proste pridam jinej install command do venvu, podobne jako rozbijej tyhlencti upload
+http://bazaar.launchpad.net/~python-distutils-extra-hackers/python-distutils-extra/debian/files
+http://aur.archlinux.org/packages/python-distutils-extra-bzr/python-distutils-extra-bzr/PKGBUILD
+
+
