@@ -143,7 +143,7 @@ class TestRVirtualEnv(InTempTestCase):
         run_command = 'run.bat'
         run_file = 'run.bat'
         shebang = '@echo off'
-	out_filter = lambda x: x.lower()
+        out_filter = lambda x: x.lower()
         self.activate_command(activate, deactivate,
             run_command, run_file, shebang, out_filter)
 
@@ -160,7 +160,7 @@ class TestRVirtualEnv(InTempTestCase):
         ''' % (shebang, activate, deactivate)).strip())
         f.close()
         stdout, stderr = self.run_command(run_command)
-	stdout = out_filter(stdout)
+        stdout = out_filter(stdout)
         self.failUnlessEqual(stderr.strip(), '')
         self.assertTrue(stdout.strip().startswith(self.directory))
         self.assertTrue(
@@ -199,7 +199,7 @@ class TestRVirtualEnv(InTempTestCase):
         shell = True
         p = Popen(command, stdout=PIPE, stderr=PIPE, shell=shell)
         stdout, stderr = map(
-		lambda b: b.decode(sys.stdout.encoding), p.communicate())
+            lambda b: b.decode(sys.stdout.encoding), p.communicate())
         self.failUnlessEqual('128', stdout.strip())
 
     def test_something_is_bad_on_win32_and_os_system(self):
