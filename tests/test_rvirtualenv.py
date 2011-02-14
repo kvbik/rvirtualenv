@@ -55,7 +55,7 @@ class TestRVirtualEnv(InTempTestCase):
     def run_command(self, cmd):
         shell = sys.platform != 'win32'
         p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=shell)
-        return map(lambda b: b.decode('ascii'), p.communicate())
+        return map(lambda b: b.decode(sys.stdout.encoding), p.communicate())
 
     def test_python_itself(self):
         self.install_venv()
@@ -143,11 +143,12 @@ class TestRVirtualEnv(InTempTestCase):
         run_command = 'run.bat'
         run_file = 'run.bat'
         shebang = '@echo off'
+	out_filter = lambda x: x.lower()
         self.activate_command(activate, deactivate,
-            run_command, run_file, shebang)
+            run_command, run_file, shebang, out_filter)
 
     def activate_command(self, activate, deactivate,
-            run_command, run_file, shebang):
+            run_command, run_file, shebang, out_filter=lambda x:x):
         os.chdir(self.directory)
         self.install_venv()
         f = open(run_file, 'w')
@@ -159,6 +160,7 @@ class TestRVirtualEnv(InTempTestCase):
         ''' % (shebang, activate, deactivate)).strip())
         f.close()
         stdout, stderr = self.run_command(run_command)
+	stdout = out_filter(stdout)
         self.failUnlessEqual(stderr.strip(), '')
         self.assertTrue(stdout.strip().startswith(self.directory))
         self.assertTrue(
@@ -179,7 +181,7 @@ class TestRVirtualEnv(InTempTestCase):
         if sys.platform == 'win32':
             name = 'pokus.bat'
             command = name
-            bat = ('@echo off', 'pokus.py',)
+            bat = ('@echo off', '"%s" pokus.py' % sys.executable,)
         else:
             name = 'pokus.sh'
             command = 'sh pokus.sh'
@@ -196,7 +198,8 @@ class TestRVirtualEnv(InTempTestCase):
 
         shell = True
         p = Popen(command, stdout=PIPE, stderr=PIPE, shell=shell)
-        stdout, stderr = map(lambda b: b.decode('ascii'), p.communicate())
+        stdout, stderr = map(
+		lambda b: b.decode(sys.stdout.encoding), p.communicate())
         self.failUnlessEqual('128', stdout.strip())
 
     def test_something_is_bad_on_win32_and_os_system(self):

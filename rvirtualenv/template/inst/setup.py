@@ -6,6 +6,7 @@ scripts = [
     'bin/activate.py',
 ]
 if sys.platform == 'win32':
+    scripts.append('bin/getpythondist.py')
     scripts.append('bin/python.bat')
     scripts.append('bin/activate.bat')
     scripts.append('bin/activate.bat.template')

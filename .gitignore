@@ -1,8 +1,11 @@
 *.py[co]
 .*.sw?
+*~
 
 /tests/installs/venvtest-distutils/build/
 /tests/installs/venvtest-setuptools/VEnvTest.egg-info/
 /tests/installs/venvtest-setuptools/build/
 /tests/installs/venvtest-setuptools/dist/
+
+/pokus.*
 
