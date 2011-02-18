@@ -25,7 +25,7 @@ you can install this package from pypi::
 
 you should definitely `try development version`__
 
-__ changelog_
+__ development_
 
 to create new virtual environment just call::
 
@@ -110,16 +110,22 @@ by patching your ``pythonrc.py`` file right now.
 ``boot scripts`` even ian does not like very much and i think
 there should be some init scripts only or installation of some package should be called.
 
-changelog
----------
+development
+-----------
+
+see http://github.com/kvbik/rvirtualenv
 
 0.3-dev
 ~~~~~~~
 
+aka branch master__
+
+__ https://github.com/kvbik/rvirtualenv/tree/master
+
 * `python3`_ support - it really works, tests are passing
 * support for `virtualenv wrapper`_ (via: ``source PY/bin/activate``)
 * inherit one virtualenv to another
-* ``bin/activate`` on windows relocatable and working (but one test fail)
+* ``bin/activate`` works, also on windows and relocatable
 
 .. _virtualenv wrapper: http://www.doughellmann.com/projects/virtualenvwrapper/
 .. _python3: http://diveintopython3.org/
@@ -127,7 +133,14 @@ changelog
 0.2-backports
 ~~~~~~~~~~~~~
 
+aka branch `releases/rvirtualenv-0.2`__
+
+__ https://github.com/kvbik/rvirtualenv/tree/releases/rvirtualenv-0.2
+
 * installing extensions into virtual environment works
+
+changelog
+---------
 
 0.2.3
 ~~~~~
