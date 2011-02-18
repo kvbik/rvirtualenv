@@ -118,6 +118,10 @@ see http://github.com/kvbik/rvirtualenv
 0.3-dev
 ~~~~~~~
 
+aka branch master__
+
+__ https://github.com/kvbik/rvirtualenv/tree/master
+
 * `python3`_ support - it really works, tests are passing
 * support for `virtualenv wrapper`_ (via: ``source PY/bin/activate``)
 * inherit one virtualenv to another
@@ -128,6 +132,10 @@ see http://github.com/kvbik/rvirtualenv
 
 0.2-backports
 ~~~~~~~~~~~~~
+
+aka branch `releases/rvirtualenv-0.2`__
+
+__ https://github.com/kvbik/rvirtualenv/tree/releases/rvirtualenv-0.2
 
 * installing extensions into virtual environment works
 
