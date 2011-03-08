@@ -2,7 +2,7 @@
 import os
 from os import path
 
-from helpers import InTempTestCase, get_script_path
+from tests.helpers import InTempTestCase, get_script_path
 
 import rvirtualenv
 from rvirtualenv.generate import generate, install_venv_keep_package

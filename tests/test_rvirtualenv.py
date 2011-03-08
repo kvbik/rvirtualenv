@@ -6,7 +6,7 @@ from subprocess import Popen, PIPE
 import textwrap
 import logging
 
-from helpers import InTempTestCase, get_script_path
+from tests.helpers import InTempTestCase, get_script_path
 
 import rvirtualenv
 from rvirtualenv import main
