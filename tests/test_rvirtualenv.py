@@ -55,7 +55,7 @@ class TestRVirtualEnv(InTempTestCase):
     def run_command(self, cmd):
         shell = sys.platform != 'win32'
         p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=shell)
-        return map(lambda b: b.decode(sys.stdout.encoding), p.communicate())
+        return map(lambda b: b.decode(sys.stdout.encoding or 'UTF-8'), p.communicate())
 
     def test_python_itself(self):
         self.install_venv()
@@ -199,7 +199,7 @@ class TestRVirtualEnv(InTempTestCase):
         shell = True
         p = Popen(command, stdout=PIPE, stderr=PIPE, shell=shell)
         stdout, stderr = map(
-            lambda b: b.decode(sys.stdout.encoding), p.communicate())
+            lambda b: b.decode(sys.stdout.encoding or 'UTF-8'), p.communicate())
         self.failUnlessEqual('128', stdout.strip())
 
     def test_something_is_bad_on_win32_and_os_system(self):
