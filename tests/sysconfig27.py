@@ -209,11 +209,10 @@ def _parse_makefile(filename, vars=None):
     notdone = {}
 
     f = open(filename)
-    f.__enter__()
     try:
         lines = f.readlines()
     finally:
-        f.__exit__()
+        f.close()
 
     for line in lines:
         if line.startswith('#') or line.strip() == '':
@@ -301,11 +300,10 @@ def _init_posix(vars):
     config_h = get_config_h_filename()
     try:
         f = open(config_h)
-        f.__enter__()
         try:
             parse_config_h(f, vars)
         finally:
-            f.__exit__()
+            f.close()
     except IOError, e:
         msg = "invalid Python installation: unable to open %s" % config_h
         if hasattr(e, "strerror"):
