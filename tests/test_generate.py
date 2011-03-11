@@ -4,7 +4,11 @@ from os import path
 import sys
 
 from tests.helpers import InTempTestCase, get_script_path, store_directory_structure
-from tests.sysconfig32 import get_path
+# i hate bundling libs, but don't see an option here yet..
+if int(sys.version[0]) > 2:
+    from tests.sysconfig32 import get_path
+else:
+    from tests.sysconfig27 import get_path
 
 import rvirtualenv
 from rvirtualenv.generate import generate, install_venv_keep_package
