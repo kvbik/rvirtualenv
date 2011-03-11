@@ -4,6 +4,7 @@
 import sys
 import os
 from os.path import pardir, realpath
+from string import Template
 
 _INSTALL_SCHEMES = {
     'posix_prefix': {
@@ -129,12 +130,18 @@ if _PYTHON_BUILD:
         _INSTALL_SCHEMES[scheme]['include'] = '{projectbase}/Include'
         _INSTALL_SCHEMES[scheme]['platinclude'] = '{srcdir}'
 
+def _format_template(s, **kwargs):
+    if hasattr(s, 'format'):
+        return s.format(**kwargs)
+    t = Template(s.replace('{', '${'))
+    return t.substitute(**kwargs)
+
 def _subst_vars(s, local_vars):
     try:
-        return s.format(**local_vars)
+        return _format_template(s, **local_vars)
     except KeyError:
         try:
-            return s.format(**os.environ)
+            return _format_template(s, **os.environ)
         except KeyError, var:
             raise AttributeError('{%s}' % var)
 
