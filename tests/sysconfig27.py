@@ -171,7 +171,7 @@ def _getuserbase():
     # what about 'os2emx', 'riscos' ?
     if os.name == "nt":
         base = os.environ.get("APPDATA") or "~"
-        return env_base if env_base else joinuser(base, "Python")
+        return env_base and env_base or joinuser(base, "Python")
 
     if sys.platform == "darwin":
         framework = get_config_var("PYTHONFRAMEWORK")
@@ -179,7 +179,7 @@ def _getuserbase():
             return joinuser("~", "Library", framework, "%d.%d"%(
                 sys.version_info[:2]))
 
-    return env_base if env_base else joinuser("~", ".local")
+    return env_base and env_base or joinuser("~", ".local")
 
 
 def _parse_makefile(filename, vars=None):
@@ -201,8 +201,12 @@ def _parse_makefile(filename, vars=None):
     done = {}
     notdone = {}
 
-    with open(filename) as f:
+    f = open(filename)
+    f.__enter__()
+    try:
         lines = f.readlines()
+    finally:
+        f.__exit__()
 
     for line in lines:
         if line.startswith('#') or line.strip() == '':
@@ -289,8 +293,12 @@ def _init_posix(vars):
     # load the installed pyconfig.h:
     config_h = get_config_h_filename()
     try:
-        with open(config_h) as f:
+        f = open(config_h)
+        f.__enter__()
+        try:
             parse_config_h(f, vars)
+        finally:
+            f.__exit__()
     except IOError, e:
         msg = "invalid Python installation: unable to open %s" % config_h
         if hasattr(e, "strerror"):
