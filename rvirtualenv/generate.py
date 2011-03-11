@@ -38,7 +38,7 @@ def run_setup(base, prefix):
 
     return stdoutdata, stdoutdata
 
-def generate(where):
+def generate(where, layout=None):
     '''
     create dirs and files after virtualenv dir itself is prepared
     '''
