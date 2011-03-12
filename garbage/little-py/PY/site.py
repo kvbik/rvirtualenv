@@ -69,6 +69,8 @@ def __boot():
             
     sys.path[:] = new_path
 
+    import rvirtualenvinstall.boot
+
 if __name__=='site':    
     __boot()
     del __boot
@@ -79,5 +81,4 @@ if __name__=='site':
 
 
 
-import rvirtualenvinstall.install
 
