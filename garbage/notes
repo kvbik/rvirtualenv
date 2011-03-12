@@ -1,4 +1,21 @@
 
+
+-- zpetne kompatibilni (2 a 3) python kod
+http://www.voidspace.org.uk/python/articles/porting-mock-to-python-3.shtml
+
+mozna by stacilo predat setup.py install --moje-schema
+http://docs.python.org/install/index.html
+http://stackoverflow.com/questions/1710839/custom-distutils-commands
+http://stackoverflow.com/questions/1321270/how-to-extend-distutils-with-a-simple-post-install-script
+
+grr...
+/usr/lib/python3.2/distutils/core.py
+/usr/lib/python3.2/distutils/dist.py
+/usr/lib/python3.2/distutils/cmd.py
+
+
+--------------------------------
+
 -- ve virtualenvu se taky ruzne fidluje s macosem
 https://bitbucket.org/ianb/virtualenv/src/204f249efc32/virtualenv_support/site.py#cl-570
 
