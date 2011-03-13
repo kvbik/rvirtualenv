@@ -8,6 +8,7 @@ from subprocess import Popen, PIPE
 
 import rvirtualenv
 from rvirtualenv.helpers import get_distutils_schema
+from rvirtualenv.rvirtualenvinstall.scheme import guess_scheme
 
 
 def run_setup(base, prefix):
@@ -40,7 +41,7 @@ def generate(where, layout=None):
     base = path.dirname(rvirtualenv.__file__)
     inst = path.join(base, 'template', 'inst')
 
-    generate_pythonrc_stuff(where)
+    generate_pythonrc_stuff(where, layout)
     install_venv_keep_package(where, inst)
 
 def install_venv_keep_package(venv_base, install_dir):
@@ -49,7 +50,7 @@ def install_venv_keep_package(venv_base, install_dir):
     '''
     run_setup(install_dir, venv_base)
 
-def generate_pythonrc_stuff(venv_base):
+def generate_pythonrc_stuff(venv_base, layout):
     '''
     insert correct lib dirs into pythonrc.py
     '''
@@ -59,9 +60,12 @@ def generate_pythonrc_stuff(venv_base):
     content = f.read()
     f.close()
 
+    if layout is None:
+        layout = guess_scheme()
+
     # replace pattern in pythonrc.py
     patrn = "scheme = 'custom'"
-    repl = "scheme = 'unix'"
+    repl = "scheme = '%s'" % layout
     content = content.replace(patrn, repl)
 
     # write it
