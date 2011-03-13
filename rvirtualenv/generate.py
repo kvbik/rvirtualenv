@@ -7,7 +7,6 @@ from distutils.core import setup
 from subprocess import Popen, PIPE
 
 import rvirtualenv
-from rvirtualenv.helpers import get_distutils_schema
 from rvirtualenv.rvirtualenvinstall.scheme import guess_scheme
 
 

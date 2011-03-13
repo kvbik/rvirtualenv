@@ -6,17 +6,19 @@ from subprocess import Popen, PIPE
 import textwrap
 import logging
 
-from tests.helpers import InTempTestCase, get_script_path
+from tests.helpers import InTempTestCase
 
 import rvirtualenv
 from rvirtualenv import main
+from rvirtualenv.rvirtualenvinstall.scheme import get_scheme, guess_scheme
 
 
 class TestRVirtualEnv(InTempTestCase):
     def setUp(self):
         super(TestRVirtualEnv, self).setUp()
 
-        self.python = path.join(get_script_path(self.virtualenv), 'python.py')
+        vars = {'base': self.virtualenv}
+        self.python = path.join(get_scheme(guess_scheme(), 'scripts', vars=vars), 'python.py')
 
     def install_venv_in_isolation(self, virtualenv=None):
         '''
@@ -43,8 +45,7 @@ class TestRVirtualEnv(InTempTestCase):
         pythonrc = path.join(virtualenv, 'pythonrc.py')
         self.assertTrue(path.exists(pythonrc))
 
-        python = path.join(get_script_path(virtualenv), 'python.py')
-        self.assertTrue(path.exists(python))
+        self.assertTrue(path.exists(self.python))
 
     def test_rvirtualenv_command_creates_distdirs_given_absolute(self):
         self.run_rvirtualenv_command(self.virtualenv)

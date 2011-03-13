@@ -6,7 +6,7 @@ from unittest import TestCase
 from tempfile import mkdtemp
 import distutils.command.install
 
-from rvirtualenv.helpers import get_distutils_schema
+import rvirtualenv
 
 
 class InTempTestCase(TestCase):
@@ -29,9 +29,6 @@ class InTempTestCase(TestCase):
 
         # dir cleanup
         rmtree(self.directory, True)
-
-def get_script_path(base):
-    return get_distutils_schema(base)['scripts']
 
 def store_directory_structure(mypath, content=None):
     '''
