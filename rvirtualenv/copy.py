@@ -12,6 +12,7 @@ def copy(where):
     '''
     base = path.dirname(rvirtualenv.__file__)
     venv = path.join(base, 'template', 'venv')
-
     copytree(venv, where)
+    venv = path.join(base, 'rvirtualenvinstall')
+    copytree(venv, path.join(where, 'rvirtualenvinstall'))
 

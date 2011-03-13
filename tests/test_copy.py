@@ -13,12 +13,21 @@ class TestCopy(InTempTestCase):
         base = path.dirname(rvirtualenv.__file__)
         venv = path.join(base, 'template', 'venv')
         os.chdir(venv)
-        expected = sorted(store_directory_structure('.'))
+        a = store_directory_structure('.')
+        rvirtinst = base
+        os.chdir(rvirtinst)
+        b = store_directory_structure('.')
+        b = [ i for i in b if 'rvirtualenvinstall' in i[0] ]
+        b = [ i for i in b if '__pycache__' not in i[0] ]
+        b = [ i for i in b if 'template' not in i[0] ]
+        expected = sorted(a+b)
 
         copy(self.virtualenv)
 
         os.chdir(self.virtualenv)
-        got = sorted(store_directory_structure('.'))
+        c = store_directory_structure('.')
+        c = [ i for i in c if '__pycache__' not in i[0] ]
+        got = sorted(c)
 
         self.failUnlessEqual(expected, got)
 
