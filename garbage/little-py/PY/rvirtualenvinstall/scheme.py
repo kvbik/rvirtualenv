@@ -57,7 +57,5 @@ def add_to_path(new_paths):
             site.addsitedir(i)
     new = sys.path[__plen:]
     del sys.path[__plen:]
-    p = getattr(sys, '__egginsert', 0)
-    sys.path[p:p] = new
-    sys.__egginsert = p+len(new)
+    sys.path[0:0] = new
 

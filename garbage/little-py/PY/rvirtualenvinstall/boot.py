@@ -17,5 +17,6 @@ this_site_packages = [
     scheme.get_scheme(pythonrc.scheme, 'platlib'),
 ]
 
+scheme.add_to_path(getattr(pythonrc, 'extra_paths', []))
 scheme.add_to_path(this_site_packages)
 
