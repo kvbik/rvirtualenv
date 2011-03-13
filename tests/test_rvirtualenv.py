@@ -162,6 +162,10 @@ class TestRVirtualEnv(InTempTestCase):
         f.close()
         stdout, stderr = self.run_command(run_command)
         stdout = out_filter(stdout)
+
+        #from shutil import copytree
+        #copytree(self.directory, path.join(path.dirname(rvirtualenv.__file__), path.pardir, 'TSTPY'))
+
         self.failUnlessEqual(stderr.strip(), '')
         self.assertTrue(stdout.strip().startswith(self.directory))
         self.assertTrue(
