@@ -126,6 +126,9 @@ __ https://github.com/kvbik/rvirtualenv/tree/master
 * support for `virtualenv wrapper`_ (via: ``source PY/bin/activate``)
 * inherit one virtualenv to another
 * ``bin/activate`` works, also on windows and relocatable
+* complete rewrite of venv
+* custom install command so you can define your own layout
+* proper functionality on macos and ubuntu
 
 .. _virtualenv wrapper: http://www.doughellmann.com/projects/virtualenvwrapper/
 .. _python3: http://diveintopython3.org/
