@@ -18,23 +18,18 @@ def run_setup(base, prefix):
     it must be called in subprocess
     because of possible setuptools monkeypatching
     '''
+    os.environ['PYTHONPATH'] = prefix
     install = [
         '"%s"' % sys.executable,
-        '-c',
-        '''"import sys; sys.prefix=r'%s'; __file__='setup.py'; exec(open('setup.py').read())"''' % prefix,
+        path.join(base, 'setup.py'),
         'install',
     ]
     install = ' '.join(install)
-
-    oldpath = os.getcwd()
-    os.chdir(base)
 
     shell = sys.platform != 'win32'
     stdout = stderr = PIPE
     p = Popen(install, stdout=stdout, stderr=stderr, shell=shell)
     stdoutdata, stderrdata = p.communicate()
-
-    os.chdir(oldpath)
 
     return stdoutdata, stdoutdata
 
@@ -46,18 +41,15 @@ def generate(where, layout=None):
     inst = path.join(base, 'template', 'inst')
 
     install_venv_keep_package(where, inst)
-    generate_include_list(where)
+    generate_pythonrc_stuff(where)
 
-def install_venv_keep_package(venv_base, install_dir, keep=False):
+def install_venv_keep_package(venv_base, install_dir):
     '''
     install setup.py via distutils
     '''
-    tmp = path.join(venv_base, 'tmp_inst')
-    copytree(install_dir, tmp)
-    run_setup(tmp, venv_base)
-    if not keep: rmtree(tmp)
+    run_setup(install_dir, venv_base)
 
-def generate_include_list(venv_base):
+def generate_pythonrc_stuff(venv_base):
     '''
     insert correct lib dirs into pythonrc.py
     '''
@@ -67,15 +59,10 @@ def generate_include_list(venv_base):
     content = f.read()
     f.close()
 
-    # replace pattern in pythonrc.py file with purelib and platlib
-    patrn = '# INSERT LIB DIRS HERE'
-    libs = '\n'.join(map(lambda x: '    %s' % x, (
-        "path.join(base, '%s'), # generated purelib" % get_distutils_schema('')['purelib'][1:],
-        "path.join(base, '%s'), # generated platlib" % get_distutils_schema('')['platlib'][1:],
-        "# sys.path from original python environment",
-        ) + tuple(map(lambda x: "'%s'," % x, set(sys.path)))
-    ))
-    content = content.replace(patrn, libs)
+    # replace pattern in pythonrc.py
+    patrn = "scheme = 'custom'"
+    repl = "scheme = 'unix'"
+    content = content.replace(patrn, repl)
 
     # write it
     f = open(path.join(venv_base, 'pythonrc.py'), 'w')

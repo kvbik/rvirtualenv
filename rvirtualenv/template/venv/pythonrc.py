@@ -1,30 +1,4 @@
-# main virtual env conf file
-# activation of this venv is done here
 
-import sys
-from os import path
-import site
-import distutils.command.install
-
-base = path.abspath(path.dirname(__file__))
-
-# real_prefix is useful for pip and uninstalling system pkgs
-sys.real_prefix = sys.prefix
-# python uses this almost everywhere
-sys.prefix = base
-# do not use $platbase (or sys.exec_prefix)
-schemes = distutils.command.install.INSTALL_SCHEMES
-for name,schema in schemes.items():
-    for what,where in schema.items():
-        if '$platbase' in where:
-            schemes[name][what] = where.replace('$platbase', '$base')
-
-# add default python lib dirs, to the beggining of sys.path
-this_site_packages = [
-# INSERT LIB DIRS HERE
-]
-
-for i in this_site_packages:
-    if i not in sys.path:
-        site.addsitedir(i)
+scheme = 'custom'
+#extra_paths = ['/path/to/inheriting/site-packages/',] # add some if you need access to other venvs
 
