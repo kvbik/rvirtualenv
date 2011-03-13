@@ -10,13 +10,16 @@ from os.path import join, dirname, pardir, abspath
 import subprocess
 
 def get_this_path():
+    '''
+    we do expect scripts are installed just one level deeper from venv
+    '''
     base = dirname(__file__)
     thispath = abspath(join(base, pardir))
     return thispath
 
 def inject_pythonpath():
     '''
-    insert current path into pythonpath
+    insert virtualevn path into pythonpath
     '''
     pathdelim = sys.platform == 'win32' and ';' or ':'
     pypath = os.environ.get('PYTHONPATH', '').split(pathdelim)
