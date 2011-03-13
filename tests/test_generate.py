@@ -35,7 +35,6 @@ class TestGenerate(InTempTestCase):
         structure = store_directory_structure(self.virtualenv, content='<file>')
 
         paths = set((i for i,j in structure))
-        print(paths)
         self.assertTrue(get_path('stdlib', vars={'base': self.virtualenv}) in paths)
         self.assertTrue(get_path('scripts', vars={'base': self.virtualenv}) in paths)
 
