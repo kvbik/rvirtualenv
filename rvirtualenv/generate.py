@@ -40,8 +40,8 @@ def generate(where, layout=None):
     base = path.dirname(rvirtualenv.__file__)
     inst = path.join(base, 'template', 'inst')
 
-    install_venv_keep_package(where, inst)
     generate_pythonrc_stuff(where)
+    install_venv_keep_package(where, inst)
 
 def install_venv_keep_package(venv_base, install_dir):
     '''
