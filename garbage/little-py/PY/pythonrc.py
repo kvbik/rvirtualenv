@@ -1,3 +1,3 @@
 
-scheme = 'unix'
+scheme = 'custom'
 

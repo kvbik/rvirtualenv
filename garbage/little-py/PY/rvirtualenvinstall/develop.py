@@ -1,8 +1,9 @@
 import setuptools
-from setuptools.command import develop
+from setuptools.command.develop import develop as _develop
 
-class develop(develop.develop):
-    description = "hacked - %s" % develop.develop.description
+
+class develop(_develop):
+    description = "rvirtualenv's %s" % _develop.description
     def run(self):
         print('WTF')
 

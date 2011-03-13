@@ -3,6 +3,13 @@ import site
 from distutils.util import subst_vars
 
 INSTALL_SCHEMES = {
+    'custom': {
+        'purelib': '$base/lib/python/site-packages',
+        'platlib': '$base/lib/python$py_version_short/site-packages',
+        'headers': '$base/include/python$py_version_short/$dist_name',
+        'scripts': '$base/bin',
+        'data'   : '$base',
+        },
     'unix': {
         'purelib': '$base/lib/python$py_version_short/site-packages',
         'platlib': '$base/lib/python$py_version_short/site-packages',

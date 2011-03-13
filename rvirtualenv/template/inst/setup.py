@@ -1,3 +1,5 @@
+import os
+from os import path
 import sys
 from distutils.core import setup
 
@@ -22,6 +24,7 @@ else:
         'bin/activate.template',
     )
 
+os.chdir(path.abspath(path.dirname(__file__)))
 setup(
     name='rvirtualenvkeep',
     version='0.1',

@@ -5,7 +5,7 @@ import rvirtualenvinstall.install
 from rvirtualenvinstall import scheme
 import pythonrc
 
-base = path.abspath(path.dirname(__file__))
+base = path.abspath(path.dirname(pythonrc.__file__))
 
 # real_prefix is useful for pip and uninstalling system pkgs
 sys.real_prefix = sys.prefix
