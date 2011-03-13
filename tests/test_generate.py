@@ -4,15 +4,11 @@ from os import path
 import sys
 
 from tests.helpers import InTempTestCase, get_script_path, store_directory_structure
-# i hate bundling libs, but don't see an option here yet..
-if int(sys.version[0]) > 2:
-    from tests.sysconfig32 import get_path
-else:
-    from tests.sysconfig27 import get_path
 
 import rvirtualenv
 from rvirtualenv.generate import generate, install_venv_keep_package
 from rvirtualenv.copy import copy
+from rvirtualenv.rvirtualenvinstall.scheme import get_scheme, guess_scheme
 
 
 class TestGenerate(InTempTestCase):
@@ -34,7 +30,10 @@ class TestGenerate(InTempTestCase):
         generate(self.virtualenv, layout=layout)
         structure = store_directory_structure(self.virtualenv, content='<file>')
 
+        if layout is None:
+            layout = guess_scheme()
+
         paths = set((i for i,j in structure))
-        self.assertTrue(get_path('stdlib', vars={'base': self.virtualenv}) in paths)
-        self.assertTrue(get_path('scripts', vars={'base': self.virtualenv}) in paths)
+        self.assertTrue(get_scheme(layout, 'purelib', vars={'base': self.virtualenv}) in paths)
+        self.assertTrue(get_scheme(layout, 'scripts', vars={'base': self.virtualenv}) in paths)
 

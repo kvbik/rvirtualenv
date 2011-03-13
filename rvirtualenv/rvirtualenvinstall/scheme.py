@@ -40,12 +40,17 @@ INSTALL_SCHEMES = {
         },
     }
 
-def get_scheme(platform, what, dist_name='UNKNOWN'):
+def guess_scheme():
+    return 'unix'
+
+def get_scheme(platform, what, vars={}):
+    # TODO: maybe use syslinux.get_path in next versions
     replace = {
         'base': sys.prefix,
         'py_version_short': sys.version[:3],
-        'dist_name': dist_name,
+        'dist_name': 'UNKNOWN',
     }
+    replace.update(vars)
     line = INSTALL_SCHEMES[platform][what]
     return subst_vars(line, replace)
 
