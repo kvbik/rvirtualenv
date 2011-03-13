@@ -13,7 +13,7 @@ class TestCopy(InTempTestCase):
         base = path.dirname(rvirtualenv.__file__)
         venv = path.join(base, 'template', 'venv')
         os.chdir(venv)
-        a = store_directory_structure('.')
+        a = list(store_directory_structure('.'))
         rvirtinst = base
         os.chdir(rvirtinst)
         b = store_directory_structure('.')

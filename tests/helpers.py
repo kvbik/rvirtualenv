@@ -51,7 +51,7 @@ def store_directory_structure(mypath, content=None):
             if content is not None:
                 d[fn] = content
                 continue
-            f = open(fn, 'r')
+            f = open(fn, 'rb')
             d[fn] = f.read()
             f.close()
     return d.items()
