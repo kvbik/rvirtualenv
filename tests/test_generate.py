@@ -12,14 +12,12 @@ else:
 
 import rvirtualenv
 from rvirtualenv.generate import generate, install_venv_keep_package
+from rvirtualenv.copy import copy
 
 
 class TestGenerate(InTempTestCase):
-    def setUp(self):
-        super(TestGenerate, self).setUp()
-        os.mkdir(self.virtualenv)
-
     def test_whole_generate(self):
+        copy(self.virtualenv)
         generate(self.virtualenv)
 
         pybin = path.join(get_script_path(self.virtualenv), 'python.py')
@@ -29,20 +27,15 @@ class TestGenerate(InTempTestCase):
         self.assertTrue(path.exists(pyrc))
 
         content = open(pyrc, 'r').read()
-        self.assertFalse('# INSERT LIB DIRS HERE' in content)
+        self.assertFalse("scheme = 'custom'" in content)
 
     def test_whole_generate_scheme(self, layout=None):
+        copy(self.virtualenv)
         generate(self.virtualenv, layout=layout)
         structure = store_directory_structure(self.virtualenv, content='<file>')
 
         paths = set((i for i,j in structure))
+        print(paths)
         self.assertTrue(get_path('stdlib', vars={'base': self.virtualenv}) in paths)
         self.assertTrue(get_path('scripts', vars={'base': self.virtualenv}) in paths)
-
-    def test_install_venv_keep_package(self):
-        inst = path.join(self.base, 'rvirtualenv', 'template', 'inst')
-        install_venv_keep_package(self.virtualenv, inst, keep=True)
-
-        l = os.listdir(self.virtualenv)
-        self.assertTrue(len(l) > 1)
 
