@@ -10,9 +10,10 @@ class install(_install):
     def finalize_options(self):
         _install.finalize_options(self)
 
+        vars = {'dist_name': self.distribution.get_name(),}
         self.install_purelib = scheme.get_scheme(pythonrc.scheme, 'purelib')
         self.install_platlib = scheme.get_scheme(pythonrc.scheme, 'purelib')
-        self.install_headers = scheme.get_scheme(pythonrc.scheme, 'headers', self.distribution.get_name())
+        self.install_headers = scheme.get_scheme(pythonrc.scheme, 'headers', vars=vars)
         self.install_scripts = scheme.get_scheme(pythonrc.scheme, 'scripts')
         self.install_data = scheme.get_scheme(pythonrc.scheme, 'data')
 
