@@ -130,7 +130,8 @@ class TestRVirtualEnv(InTempTestCase):
         self.install_some_way('setuptools')
 
     def activate_command_unix(self):
-        activate = 'source PY/bin/activate'
+        scripts = path.relpath(path.dirname(self.python), self.directory)
+        activate = 'source %s' % path.join(scripts, 'activate')
         deactivate = 'deactivate'
         run_command = 'sh run'
         run_file = 'run'
@@ -139,7 +140,8 @@ class TestRVirtualEnv(InTempTestCase):
             run_command, run_file, shebang)
 
     def activate_command_win(self):
-        activate = 'call PY\\Scripts\\activate.bat'
+        scripts = path.relpath(path.dirname(self.python), self.directory)
+        activate = 'call %s' % path.join(scripts, 'activate.bat')
         deactivate = 'call deactivate.bat'
         run_command = 'run.bat'
         run_file = 'run.bat'
@@ -163,8 +165,12 @@ class TestRVirtualEnv(InTempTestCase):
         stdout, stderr = self.run_command(run_command)
         stdout = out_filter(stdout)
 
-        #from shutil import copytree
-        #copytree(self.directory, path.join(path.dirname(rvirtualenv.__file__), path.pardir, 'TSTPY'))
+        '''
+        from shutil import copytree, rmtree
+        tempdir = path.join(path.dirname(rvirtualenv.__file__), path.pardir, 'TSTPY')
+        rmtree(tempdir, True)
+        copytree(self.directory, tempdir)
+        '''
 
         self.failUnlessEqual(stderr.strip(), '')
         self.assertTrue(stdout.strip().startswith(self.directory))
