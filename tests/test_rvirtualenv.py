@@ -6,7 +6,7 @@ from subprocess import Popen, PIPE
 import textwrap
 import logging
 
-from tests.helpers import InTempTestCase
+from tests.helpers import InTempTestCase, relpath
 
 import rvirtualenv
 from rvirtualenv import main
@@ -130,7 +130,7 @@ class TestRVirtualEnv(InTempTestCase):
         self.install_some_way('setuptools')
 
     def activate_command_unix(self):
-        scripts = path.relpath(path.dirname(self.python), self.directory)
+        scripts = relpath(path.dirname(self.python), self.directory)
         activate = 'source %s' % path.join(scripts, 'activate')
         deactivate = 'deactivate'
         run_command = 'bash run'
@@ -140,7 +140,7 @@ class TestRVirtualEnv(InTempTestCase):
             run_command, run_file, shebang)
 
     def activate_command_win(self):
-        scripts = path.relpath(path.dirname(self.python), self.directory)
+        scripts = relpath(path.dirname(self.python), self.directory)
         activate = 'call %s' % path.join(scripts, 'activate.bat')
         deactivate = 'call deactivate.bat'
         run_command = 'run.bat'

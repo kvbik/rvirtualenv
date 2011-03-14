@@ -53,3 +53,7 @@ def store_directory_structure(mypath, content=None):
             f.close()
     return d.items()
 
+def relpath(p, start):
+    "os.path.relpath dummy replacement"
+    return p.replace(path.join(start, ''), '', 1)
+
