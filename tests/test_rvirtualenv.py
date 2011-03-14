@@ -133,7 +133,7 @@ class TestRVirtualEnv(InTempTestCase):
         scripts = path.relpath(path.dirname(self.python), self.directory)
         activate = 'source %s' % path.join(scripts, 'activate')
         deactivate = 'deactivate'
-        run_command = 'sh run'
+        run_command = 'bash run'
         run_file = 'run'
         shebang = '#!/bin/sh'
         self.activate_command(activate, deactivate,

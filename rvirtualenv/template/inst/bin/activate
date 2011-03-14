@@ -1,5 +1,5 @@
-#!/bin/sh
 
+# you cannot guess path of included file in plain posix shell..
 [ $BASH_SOURCE ] && b=`dirname ${BASH_SOURCE[0]}` || b=`dirname $0`
 b=`cd $b; pwd`
 
