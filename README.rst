@@ -153,8 +153,8 @@ changelog
 .. _distribute: http://bitbucket.org/tarek/distribute/
 .. _setuptools: http://pypi.python.org/pypi/setuptools
 
-<=0.2.2
-~~~~~~~
+0.2.2
+~~~~~
 
-initial versions
+initial versions (<=0.2.2)
 
