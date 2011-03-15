@@ -10,6 +10,8 @@ that it can be relocated freely through the filesystem, renamed, backuped, ...
 second nice feature is, that you can customize your python environment
 via ``{{ENV}}/pythonrc.py`` in any curious way you want.
 
+works with python3, pypy
+
 install
 -------
 
@@ -29,11 +31,11 @@ __ development_
 
 to create new virtual environment just call::
 
-  virtualenv ~/PYENV1
+  rvirtualenv ~/PYENV1
 
   # or directly from this repo
 
-  ./virtualenv.py ~/PYENV2
+  ./rvirtualenv.py ~/PYENV2
 
 usage
 -----
@@ -79,8 +81,11 @@ because it is a build dependency.
 
 package was tested on:
 
- * archlinux with python 2.6
+ * archlinux with python 3.2
+ * archlinux with python 2.7
+ * macosx 10.6 python 2.6
  * ms windows with python 2.6
+ * ubuntu 10.04 python 2.6
  * debian lenny with python 2.5
  * debian etch with python 2.4
 
@@ -115,12 +120,11 @@ development
 
 see http://github.com/kvbik/rvirtualenv
 
-0.3-dev
-~~~~~~~
+changelog
+---------
 
-aka branch master__
-
-__ https://github.com/kvbik/rvirtualenv/tree/master
+0.3.0
+~~~~~
 
 * `python3`_ support - it really works, tests are passing
 * support for `virtualenv wrapper`_ (via: ``source PY/bin/activate``)
@@ -133,17 +137,11 @@ __ https://github.com/kvbik/rvirtualenv/tree/master
 .. _virtualenv wrapper: http://www.doughellmann.com/projects/virtualenvwrapper/
 .. _python3: http://diveintopython3.org/
 
-0.2-backports
-~~~~~~~~~~~~~
-
-aka branch `releases/rvirtualenv-0.2`__
-
-__ https://github.com/kvbik/rvirtualenv/tree/releases/rvirtualenv-0.2
+0.2.x
+~~~~~
 
 * installing extensions into virtual environment works
-
-changelog
----------
+* not released, but merged to 0.3
 
 0.2.3
 ~~~~~
