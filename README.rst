@@ -57,7 +57,7 @@ if you don't want to mess up with environment, just call our wrapper::
   ~/PYENV1/bin/python [any [params]]
 
   # on win
-  c:\PYENV1\Scripts\python.bat [any [params]]
+  c:\PYENV1\bin\python.bat [any [params]]
 
 it should work with mod-wsgi ``python-path`` option as well,
 and you can enable it in runtime via ``site.addsitedir(venv_directory)``.
