@@ -1,3 +1,2 @@
 [distutils.commands]
-install = rvirtualenvinstall.install:install
 developp = rvirtualenvinstall.develop:develop

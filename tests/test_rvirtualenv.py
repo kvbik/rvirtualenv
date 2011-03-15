@@ -127,7 +127,10 @@ class TestRVirtualEnv(InTempTestCase):
         this test should skip if you don't have setuptools
         but other tests could fail too..
         '''
-        self.install_some_way('setuptools')
+        inst_command = ('install'
+                ' --single-version-externally-managed'
+                ' --record %s' % path.join(self.directory, 'record.log'))
+        self.install_some_way('setuptools', inst_command=inst_command)
 
     def activate_command_unix(self):
         scripts = relpath(path.dirname(self.python), self.directory)
