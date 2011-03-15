@@ -176,7 +176,7 @@ class TestRVirtualEnv(InTempTestCase):
         '''
 
         self.failUnlessEqual(stderr.strip(), '')
-        self.assertTrue(stdout.strip().startswith(self.directory))
+        self.assertTrue(stdout.strip().startswith(path.realpath(self.directory)))
         self.assertTrue(
             stdout.strip().endswith('rvirtualenvkeep.pyo') or \
             stdout.strip().endswith('rvirtualenvkeep.pyc') or \
