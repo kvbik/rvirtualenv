@@ -6,17 +6,19 @@ from subprocess import Popen, PIPE
 import textwrap
 import logging
 
-from helpers import InTempTestCase, get_script_path
+from tests.helpers import InTempTestCase, relpath
 
 import rvirtualenv
 from rvirtualenv import main
+from rvirtualenv.rvirtualenvinstall.scheme import get_scheme, guess_scheme
 
 
 class TestRVirtualEnv(InTempTestCase):
     def setUp(self):
         super(TestRVirtualEnv, self).setUp()
 
-        self.python = path.join(get_script_path(self.virtualenv), 'python.py')
+        vars = {'base': self.virtualenv}
+        self.python = path.join(get_scheme(guess_scheme(), 'scripts', vars=vars), 'python.py')
 
     def install_venv_in_isolation(self, virtualenv=None):
         '''
@@ -43,8 +45,7 @@ class TestRVirtualEnv(InTempTestCase):
         pythonrc = path.join(virtualenv, 'pythonrc.py')
         self.assertTrue(path.exists(pythonrc))
 
-        python = path.join(get_script_path(virtualenv), 'python.py')
-        self.assertTrue(path.exists(python))
+        self.assertTrue(path.exists(self.python))
 
     def test_rvirtualenv_command_creates_distdirs_given_absolute(self):
         self.run_rvirtualenv_command(self.virtualenv)
@@ -55,7 +56,7 @@ class TestRVirtualEnv(InTempTestCase):
     def run_command(self, cmd):
         shell = sys.platform != 'win32'
         p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=shell)
-        return map(lambda b: b.decode(sys.stdout.encoding), p.communicate())
+        return map(lambda b: b.decode(sys.stdout.encoding or 'UTF-8'), p.communicate())
 
     def test_python_itself(self):
         self.install_venv()
@@ -126,19 +127,24 @@ class TestRVirtualEnv(InTempTestCase):
         this test should skip if you don't have setuptools
         but other tests could fail too..
         '''
-        self.install_some_way('setuptools')
+        inst_command = ('install'
+                ' --single-version-externally-managed'
+                ' --record %s' % path.join(self.directory, 'record.log'))
+        self.install_some_way('setuptools', inst_command=inst_command)
 
     def activate_command_unix(self):
-        activate = 'source PY/bin/activate'
+        scripts = relpath(path.dirname(self.python), self.directory)
+        activate = 'source %s' % path.join(scripts, 'activate')
         deactivate = 'deactivate'
-        run_command = 'sh run'
+        run_command = 'bash run'
         run_file = 'run'
         shebang = '#!/bin/sh'
         self.activate_command(activate, deactivate,
             run_command, run_file, shebang)
 
     def activate_command_win(self):
-        activate = 'call PY\\Scripts\\activate.bat'
+        scripts = relpath(path.dirname(self.python), self.directory)
+        activate = 'call %s' % path.join(scripts, 'activate.bat')
         deactivate = 'call deactivate.bat'
         run_command = 'run.bat'
         run_file = 'run.bat'
@@ -161,8 +167,16 @@ class TestRVirtualEnv(InTempTestCase):
         f.close()
         stdout, stderr = self.run_command(run_command)
         stdout = out_filter(stdout)
+
+        '''
+        from shutil import copytree, rmtree
+        tempdir = path.join(path.dirname(rvirtualenv.__file__), path.pardir, 'TSTPY')
+        rmtree(tempdir, True)
+        copytree(self.directory, tempdir)
+        '''
+
         self.failUnlessEqual(stderr.strip(), '')
-        self.assertTrue(stdout.strip().startswith(self.directory))
+        self.assertTrue(stdout.strip().startswith(path.realpath(self.directory)))
         self.assertTrue(
             stdout.strip().endswith('rvirtualenvkeep.pyo') or \
             stdout.strip().endswith('rvirtualenvkeep.pyc') or \
@@ -199,7 +213,7 @@ class TestRVirtualEnv(InTempTestCase):
         shell = True
         p = Popen(command, stdout=PIPE, stderr=PIPE, shell=shell)
         stdout, stderr = map(
-            lambda b: b.decode(sys.stdout.encoding), p.communicate())
+            lambda b: b.decode(sys.stdout.encoding or 'UTF-8'), p.communicate())
         self.failUnlessEqual('128', stdout.strip())
 
     def test_something_is_bad_on_win32_and_os_system(self):

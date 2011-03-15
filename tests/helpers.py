@@ -4,8 +4,9 @@ from os import path
 from shutil import rmtree
 from unittest import TestCase
 from tempfile import mkdtemp
+import distutils.command.install
 
-from rvirtualenv.helpers import get_distutils_schema
+import rvirtualenv
 
 
 class InTempTestCase(TestCase):
@@ -29,6 +30,30 @@ class InTempTestCase(TestCase):
         # dir cleanup
         rmtree(self.directory, True)
 
-def get_script_path(base):
-    return get_distutils_schema(base)['scripts']
+def store_directory_structure(mypath, content=None):
+    '''
+    recursivelly traverse directory and store it in format:
+    (
+      (mypath, None),
+      (mypath/to, None),
+      (mypath/to/dir, None),
+      (mypath/to/dir/file.txt, {{ file's content }}),
+    )
+    '''
+    d = {}
+    for base, dirs, files in os.walk(mypath):
+        d[base] = None
+        for i in files:
+            fn = path.join(base, i)
+            if content is not None:
+                d[fn] = content
+                continue
+            f = open(fn, 'rb')
+            d[fn] = f.read()
+            f.close()
+    return d.items()
+
+def relpath(p, start):
+    "os.path.relpath dummy replacement"
+    return p.replace(path.join(start, ''), '', 1)
 

@@ -1,34 +1,34 @@
 
-import os
 from os import path
 
-from helpers import InTempTestCase, get_script_path
+from tests.helpers import InTempTestCase, store_directory_structure
 
 import rvirtualenv
-from rvirtualenv.generate import generate, install_venv_keep_package
+from rvirtualenv.generate import generate
+from rvirtualenv.copy import copy
+from rvirtualenv.rvirtualenvinstall.scheme import get_scheme, guess_scheme
 
 
 class TestGenerate(InTempTestCase):
-    def setUp(self):
-        super(TestGenerate, self).setUp()
-        os.mkdir(self.virtualenv)
+    def test_whole_generate(self, layout=None):
+        copy(self.virtualenv)
+        generate(self.virtualenv, layout=layout)
+        structure = store_directory_structure(self.virtualenv, content='<file>')
 
-    def test_whole_generate(self):
-        generate(self.virtualenv)
+        if layout is None:
+            layout = guess_scheme()
 
-        pybin = path.join(get_script_path(self.virtualenv), 'python.py')
+        paths = set((i for i,j in structure))
+        vars = {'base': self.virtualenv}
+        self.assertTrue(get_scheme(layout, 'purelib', vars=vars) in paths)
+        self.assertTrue(get_scheme(layout, 'scripts', vars=vars) in paths)
+
+        pybin = path.join(get_scheme(layout, 'scripts', vars=vars), 'python.py')
         self.assertTrue(path.exists(pybin))
 
         pyrc = path.join(self.virtualenv, 'pythonrc.py')
         self.assertTrue(path.exists(pyrc))
 
         content = open(pyrc, 'r').read()
-        self.assertFalse('# INSERT LIB DIRS HERE' in content)
-
-    def test_install_venv_keep_package(self):
-        inst = path.join(self.base, 'rvirtualenv', 'template', 'inst')
-        install_venv_keep_package(self.virtualenv, inst, keep=True)
-
-        l = os.listdir(self.virtualenv)
-        self.assertTrue(len(l) > 1)
+        self.assertFalse("scheme = 'custom'" in content)
 

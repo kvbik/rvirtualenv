@@ -1,0 +1,2 @@
+[distutils.commands]
+developp = rvirtualenvinstall.develop:develop

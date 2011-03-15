@@ -2,43 +2,32 @@
 import os
 from os import path
 
-from helpers import InTempTestCase
+from tests.helpers import InTempTestCase, store_directory_structure
 
 import rvirtualenv
 from rvirtualenv.copy import copy
 
 
 class TestCopy(InTempTestCase):
-    def store_directory_structure(self, mypath):
-        '''
-        recursivelly traverse directory and store it in format:
-        (
-          (mypath, None),
-          (mypath/to, None),
-          (mypath/to/dir, None),
-          (mypath/to/dir/file.txt, {{ file's content }}),
-        )
-        '''
-        d = {}
-        for base, dirs, files in os.walk(mypath):
-            d[base] = None
-            for i in files:
-                fn = path.join(base, i)
-                f = open(fn, 'r')
-                d[fn] = f.read()
-                f.close()
-        return d.items()
-
     def test_whole_copy(self):
         base = path.dirname(rvirtualenv.__file__)
         venv = path.join(base, 'template', 'venv')
         os.chdir(venv)
-        expected = sorted(self.store_directory_structure('.'))
+        a = list(store_directory_structure('.'))
+        rvirtinst = base
+        os.chdir(rvirtinst)
+        b = store_directory_structure('.')
+        b = [ i for i in b if 'rvirtualenvinstall' in i[0] ]
+        b = [ i for i in b if '__pycache__' not in i[0] ]
+        b = [ i for i in b if 'template' not in i[0] ]
+        expected = sorted(a+b)
 
         copy(self.virtualenv)
 
         os.chdir(self.virtualenv)
-        got = sorted(self.store_directory_structure('.'))
+        c = store_directory_structure('.')
+        c = [ i for i in c if '__pycache__' not in i[0] ]
+        got = sorted(c)
 
         self.failUnlessEqual(expected, got)
 
