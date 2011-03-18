@@ -16,7 +16,7 @@ __versionstr__ = '.'.join(map(str, VERSION))
 def get_parser():
     parser = OptionParser(usage="%prog [OPTIONS] DEST_DIR")
     parser.add_option(
-        '--no-site-packages', dest='no_site_packages', action='store_true', default=False,
+        '--no-site-packages', dest='sitepackages', action='store_false', default=True,
         help="Don't give access to the global site-packages dir to the virtual environment"
     )
     '''
@@ -51,5 +51,5 @@ def main(argv=None):
     venv = path.join(os.getcwd(), name[0])
 
     copy(venv)
-    generate(venv)
+    generate(venv, sitepackages=options.sitepackages)
 
