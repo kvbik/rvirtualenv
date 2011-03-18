@@ -71,6 +71,8 @@ def __boot():
     sys.path[:] = new_path
 
     import rvirtualenvinstall.boot
+    rvirtualenvinstall.boot.boot()
+
 
 if __name__=='site':    
     __boot()
