@@ -13,21 +13,26 @@ __version__ = VERSION
 __versionstr__ = '.'.join(map(str, VERSION))
 
 
-parser = OptionParser(usage="%prog [OPTIONS] DEST_DIR")
-parser.add_option(
-    '--no-site-packages', dest='no_site_packages', action='store_true', default=False,
-    help="Don't give access to the global site-packages dir to the virtual environment"
-)
-parser.add_option(
-    '-p', '--python', dest='python', metavar='PYTHON_EXE', default=sys.executable,
-    help='The Python interpreter to use, e.g., --python=python2.5 will use the python2.5 '
-    'interpreter to create the new environment.  The default is the interpreter that '
-    'virtualenv was installed with (%s)' % sys.executable
-)
-parser.add_option(
-    '--prompt=', dest='prompt',
-    help='Provides an alternative prompt prefix for this environment'
-)
+def get_parser():
+    parser = OptionParser(usage="%prog [OPTIONS] DEST_DIR")
+    parser.add_option(
+        '--no-site-packages', dest='no_site_packages', action='store_true', default=False,
+        help="Don't give access to the global site-packages dir to the virtual environment"
+    )
+    '''
+    # not implemented yet
+    parser.add_option(
+        '-p', '--python', dest='python', metavar='PYTHON_EXE', default=sys.executable,
+        help='The Python interpreter to use, e.g., --python=python2.5 will use the python2.5 '
+        'interpreter to create the new environment.  The default is the interpreter that '
+        'virtualenv was installed with (%s)' % sys.executable
+    )
+    parser.add_option(
+        '--prompt=', dest='prompt',
+        help='Provides an alternative prompt prefix for this environment'
+    )
+    '''
+    return parser
 
 def main(argv=None):
     '''
@@ -36,6 +41,7 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
 
+    parser = get_parser()
     options, name = parser.parse_args(argv[1:])
 
     if len(name) != 1:
