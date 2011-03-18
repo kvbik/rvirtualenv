@@ -1,9 +1,7 @@
 
 import os
 from os import path
-from shutil import copy, rmtree, copytree
 import sys
-from distutils.core import setup
 from subprocess import Popen, PIPE
 
 import rvirtualenv
@@ -33,14 +31,14 @@ def run_setup(base, prefix):
 
     return stdoutdata, stdoutdata
 
-def generate(where, layout=None):
+def generate(where, layout=None, sitepackages=True):
     '''
     create dirs and files after virtualenv dir itself is prepared
     '''
     base = path.dirname(rvirtualenv.__file__)
     inst = path.join(base, 'template', 'inst')
 
-    generate_pythonrc_stuff(where, layout)
+    generate_pythonrc_stuff(where, layout, sitepackages)
     install_venv_keep_package(where, inst)
 
 def install_venv_keep_package(venv_base, install_dir):
@@ -49,7 +47,7 @@ def install_venv_keep_package(venv_base, install_dir):
     '''
     run_setup(install_dir, venv_base)
 
-def generate_pythonrc_stuff(venv_base, layout):
+def generate_pythonrc_stuff(venv_base, layout, sitepackages):
     '''
     insert correct lib dirs into pythonrc.py
     '''
@@ -65,6 +63,11 @@ def generate_pythonrc_stuff(venv_base, layout):
     # replace pattern in pythonrc.py
     patrn = "scheme = 'custom'"
     repl = "scheme = '%s'" % layout
+    content = content.replace(patrn, repl)
+
+    # update no-site-packages option
+    patrn = "sitepackages = True"
+    repl = "sitepackages = %s" % sitepackages
     content = content.replace(patrn, repl)
 
     # write it

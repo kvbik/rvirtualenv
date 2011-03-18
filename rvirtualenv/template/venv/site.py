@@ -1,5 +1,6 @@
 def __boot():
     import sys, imp, os, os.path   
+    sys.__rvirtualenv_prev_path = list(sys.path)
     PYTHONPATH = os.environ.get('PYTHONPATH')
     if PYTHONPATH is None or (sys.platform=='win32' and not PYTHONPATH):
         PYTHONPATH = []
