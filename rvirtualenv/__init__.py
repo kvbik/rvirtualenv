@@ -21,13 +21,13 @@ def get_parser():
     )
     '''
     # not implemented yet
-    parser.add_option(
+    parser.add_option( # call different main()
         '-p', '--python', dest='python', metavar='PYTHON_EXE', default=sys.executable,
         help='The Python interpreter to use, e.g., --python=python2.5 will use the python2.5 '
         'interpreter to create the new environment.  The default is the interpreter that '
         'virtualenv was installed with (%s)' % sys.executable
     )
-    parser.add_option(
+    parser.add_option( # pythonrc.py a volat activate.py jinak
         '--prompt=', dest='prompt',
         help='Provides an alternative prompt prefix for this environment'
     )
