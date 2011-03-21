@@ -3,12 +3,18 @@
 import sys
 from os import path
 
+def get_prompt(vname_path, vname):
+    sys.path.insert(0, vname_path)
+    import pythonrc
+    prompt = getattr(pythonrc, 'prompt', '(%s)' % vname)
+    return prompt
+
 def get_subst_values():
     base = path.dirname(__file__)
     vname_path = path.abspath(path.join(base, path.pardir))
     vname = path.split(vname_path)[-1]
     bin_path = path.split(base)[-1]
-    prompt = '(%s)' % vname
+    prompt = get_prompt(vname_path, vname)
     return {
         '__VIRTUAL_PROMPT__': prompt,
         '__VIRTUAL_WINPROMPT__': prompt, 

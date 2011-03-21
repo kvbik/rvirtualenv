@@ -31,14 +31,14 @@ def run_setup(base, prefix):
 
     return stdoutdata, stdoutdata
 
-def generate(where, layout=None, sitepackages=True):
+def generate(where, layout=None, sitepackages=True, prompt=None):
     '''
     create dirs and files after virtualenv dir itself is prepared
     '''
     base = path.dirname(rvirtualenv.__file__)
     inst = path.join(base, 'template', 'inst')
 
-    generate_pythonrc_stuff(where, layout, sitepackages)
+    generate_pythonrc_stuff(where, layout, sitepackages, prompt)
     install_venv_keep_package(where, inst)
 
 def install_venv_keep_package(venv_base, install_dir):
@@ -47,7 +47,7 @@ def install_venv_keep_package(venv_base, install_dir):
     '''
     run_setup(install_dir, venv_base)
 
-def generate_pythonrc_stuff(venv_base, layout, sitepackages):
+def generate_pythonrc_stuff(venv_base, layout, sitepackages, prompt):
     '''
     insert correct lib dirs into pythonrc.py
     '''
@@ -69,6 +69,12 @@ def generate_pythonrc_stuff(venv_base, layout, sitepackages):
     patrn = "sitepackages = True"
     repl = "sitepackages = %s" % sitepackages
     content = content.replace(patrn, repl)
+
+    # set custom prompt
+    patrn = "#prompt = '[CUSTOM]' # set your custom prompt prefix (see -p option)"
+    repl = "prompt = %r" % prompt
+    if prompt is not None:
+        content = content.replace(patrn, repl)
 
     # write it
     f = open(path.join(venv_base, 'pythonrc.py'), 'w')

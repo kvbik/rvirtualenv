@@ -30,13 +30,10 @@ def get_parser():
         'interpreter to create the new environment.  The default is the interpreter that '
         'virtualenv was installed with (%s)' % sys.executable
     )
-    '''
-    # not implemented yet
-    parser.add_option( # pythonrc.py a volat activate.py jinak
+    parser.add_option(
         '--prompt=', dest='prompt',
         help='Provides an alternative prompt prefix for this environment'
     )
-    '''
     return parser
 
 def get_base():
@@ -45,24 +42,24 @@ def get_base():
     '''
     return path.abspath(path.join(path.dirname(rvirtualenv.__file__), path.pardir))
 
-def create_subprocess(python, venv, sitepackages):
+def create_subprocess(python, venv, sitepackages, prompt):
     '''
     install rvirtualenv with given interpreter
     '''
-    cmd = ('''%s -c "import sys; sys.path.insert(0, r'%s'); '''
-           '''from rvirtualenv import create; create(r'%s', %s)"''') % \
-            (python, get_base(), venv, sitepackages)
+    cmd = ('''%s -c "import sys; sys.path.insert(0, %r); '''
+           '''from rvirtualenv import create; create(%r, %s, %r)"''') % \
+            (python, get_base(), venv, sitepackages, prompt)
     shell = sys.platform != 'win32'
     p = Popen(cmd, shell=shell)
     return os.waitpid(p.pid, 0)[1]
 
-def create(name, sitepackages):
+def create(name, sitepackages, prompt):
     '''
     create rvirtualenv
     '''
     venv = path.join(os.getcwd(), name)
     copy(venv)
-    generate(venv, sitepackages=sitepackages)
+    generate(venv, sitepackages=sitepackages, prompt=prompt)
 
 def main(argv=None):
     '''
@@ -78,5 +75,5 @@ def main(argv=None):
         parser.print_help()
         parser.exit('Invalid parameter count.')
 
-    create_subprocess(options.python, name[0], options.sitepackages)
+    create_subprocess(options.python, name[0], options.sitepackages, options.prompt)
 
