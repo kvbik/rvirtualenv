@@ -19,16 +19,17 @@ class TestRVirtualEnv(InTempTestCase):
         vars = {'base': self.virtualenv}
         self.python = path.join(get_scheme(guess_scheme(), 'scripts', vars=vars), 'python.py')
 
-    def install_venv_in_isolation(self, virtualenv=None):
+    def install_venv_in_isolation(self, virtualenv=None, sitepackages=True):
         '''
         install rvirtualenv itself, but do it in subprocess,
         because of possible interaction with other imported libraries
         (eg: setuptools and its monkeypatching)
         '''
-        if virtualenv is None: virtualenv = self.virtualenv
+        if virtualenv is None:
+            virtualenv = self.virtualenv
         cmd = ('''%s -c "import sys; sys.path.insert(0, r'%s'); '''
-               '''from rvirtualenv import main; main([None, r'%s'])"''') % \
-                (sys.executable, self.base, virtualenv)
+               '''from rvirtualenv import create; create(r'%s', %s)"''') % \
+                (sys.executable, self.base, virtualenv, sitepackages)
         stdout, stderr = self.run_command(cmd)
         self.failUnlessEqual('', stdout.strip())
         self.failUnlessEqual('', stderr.strip())

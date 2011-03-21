@@ -14,6 +14,9 @@ __versionstr__ = '.'.join(map(str, VERSION))
 
 
 def get_parser():
+    '''
+    options parser
+    '''
     parser = OptionParser(usage="%prog [OPTIONS] DEST_DIR")
     parser.add_option(
         '--no-site-packages', dest='sitepackages', action='store_false', default=True,
@@ -34,6 +37,14 @@ def get_parser():
     '''
     return parser
 
+def create(name, sitepackages):
+    '''
+    create rvirtualenv
+    '''
+    venv = path.join(os.getcwd(), name)
+    copy(venv)
+    generate(venv, sitepackages=sitepackages)
+
 def main(argv=None):
     '''
     main call for rvirtualenv command
@@ -48,8 +59,5 @@ def main(argv=None):
         parser.print_help()
         parser.exit('Invalid parameter count.')
 
-    venv = path.join(os.getcwd(), name[0])
-
-    copy(venv)
-    generate(venv, sitepackages=options.sitepackages)
+    create(name[0], sitepackages=options.sitepackages)
 
