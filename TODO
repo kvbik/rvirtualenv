@@ -1,9 +1,4 @@
 
-tests for no-site-packages
-
-
-------------
-
 test for install with pip and not uninstalling
 some sys (previous venv) package
 

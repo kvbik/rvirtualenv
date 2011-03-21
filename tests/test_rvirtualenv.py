@@ -8,7 +8,6 @@ import logging
 
 from tests.helpers import InTempTestCase, relpath
 
-import rvirtualenv
 from rvirtualenv import main
 from rvirtualenv.rvirtualenvinstall.scheme import get_scheme, guess_scheme
 
@@ -34,8 +33,11 @@ class TestRVirtualEnv(InTempTestCase):
         self.failUnlessEqual('', stdout.strip())
         self.failUnlessEqual('', stderr.strip())
 
-    def install_venv(self):
-        argv = [None, self.virtualenv]
+    def install_venv(self, args=[], virtualenv=None):
+        if virtualenv is None:
+            virtualenv = self.virtualenv
+        argv = [None, virtualenv]
+        argv[1:1] = args
         main(argv)
 
     def run_rvirtualenv_command(self, virtualenv):
@@ -64,6 +66,25 @@ class TestRVirtualEnv(InTempTestCase):
         cmd = '%s %s -c "print(128)"' % (sys.executable, self.python)
         stdout, stderr = self.run_command(cmd)
         self.failUnlessEqual('128', stdout.strip())
+
+    def test_venv_without_site_packages(self):
+        '''
+        setuptools installed system-wide is needed for this test
+        '''
+        v1 = path.join(self.directory, 'PY1')
+        py1 = path.join(get_scheme(guess_scheme(), 'scripts', vars={'base': v1}), 'python.py')
+        self.install_venv(args=[], virtualenv=v1)
+        cmd = '%s %s -c "import setuptools"' % (sys.executable, py1)
+        stdout, stderr = self.run_command(cmd)
+        self.failUnlessEqual('', stderr.strip())
+        self.failUnlessEqual('', stdout.strip())
+
+        v2 = path.join(self.directory, 'PY2')
+        py2 = path.join(get_scheme(guess_scheme(), 'scripts', vars={'base': v2}), 'python.py')
+        self.install_venv(args=['--no-site-packages'], virtualenv=v2)
+        cmd = '%s %s -c "import setuptools"' % (sys.executable, py2)
+        stdout, stderr = self.run_command(cmd)
+        self.assertTrue('ImportError: No module named setuptools' in stderr)
 
     def test_run_python_script(self):
         self.install_venv()
@@ -170,7 +191,7 @@ class TestRVirtualEnv(InTempTestCase):
 
         '''
         from shutil import copytree, rmtree
-        tempdir = path.join(path.dirname(rvirtualenv.__file__), path.pardir, 'TSTPY')
+        tempdir = path.join(self.base, 'TSTPY')
         rmtree(tempdir, True)
         copytree(self.directory, tempdir)
         '''

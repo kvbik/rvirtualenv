@@ -4,7 +4,6 @@ from os import path
 from shutil import rmtree
 from unittest import TestCase
 from tempfile import mkdtemp
-import distutils.command.install
 
 import rvirtualenv
 
@@ -21,7 +20,7 @@ class InTempTestCase(TestCase):
         self.virtualenv = path.join(self.directory, 'PY')
 
         # store base dir
-        self.base = path.join(path.dirname(__file__), path.pardir)
+        self.base = path.join(path.dirname(rvirtualenv.__file__), path.pardir)
 
     def tearDown(self):
         # go back
