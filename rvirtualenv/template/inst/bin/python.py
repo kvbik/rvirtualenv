@@ -7,7 +7,7 @@ and run system wide python instance
 
 import os, sys
 from os.path import join, dirname, pardir, abspath
-import subprocess
+
 
 def get_this_path():
     '''

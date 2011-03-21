@@ -3,7 +3,9 @@ import os
 import sys
 from os import path
 from optparse import OptionParser
+from subprocess import Popen
 
+import rvirtualenv
 from rvirtualenv.copy import copy
 from rvirtualenv.generate import generate
 
@@ -22,20 +24,37 @@ def get_parser():
         '--no-site-packages', dest='sitepackages', action='store_false', default=True,
         help="Don't give access to the global site-packages dir to the virtual environment"
     )
-    '''
-    # not implemented yet
-    parser.add_option( # call different main()
+    parser.add_option(
         '-p', '--python', dest='python', metavar='PYTHON_EXE', default=sys.executable,
         help='The Python interpreter to use, e.g., --python=python2.5 will use the python2.5 '
         'interpreter to create the new environment.  The default is the interpreter that '
         'virtualenv was installed with (%s)' % sys.executable
     )
+    '''
+    # not implemented yet
     parser.add_option( # pythonrc.py a volat activate.py jinak
         '--prompt=', dest='prompt',
         help='Provides an alternative prompt prefix for this environment'
     )
     '''
     return parser
+
+def get_base():
+    '''
+    path to rvirtualenv
+    '''
+    return path.abspath(path.join(path.dirname(rvirtualenv.__file__), path.pardir))
+
+def create_subprocess(python, venv, sitepackages):
+    '''
+    install rvirtualenv with given interpreter
+    '''
+    cmd = ('''%s -c "import sys; sys.path.insert(0, r'%s'); '''
+           '''from rvirtualenv import create; create(r'%s', %s)"''') % \
+            (python, get_base(), venv, sitepackages)
+    shell = sys.platform != 'win32'
+    p = Popen(cmd, shell=shell)
+    return os.waitpid(p.pid, 0)[1]
 
 def create(name, sitepackages):
     '''
@@ -59,5 +78,5 @@ def main(argv=None):
         parser.print_help()
         parser.exit('Invalid parameter count.')
 
-    create(name[0], sitepackages=options.sitepackages)
+    create_subprocess(options.python, name[0], options.sitepackages)
 
