@@ -3,7 +3,7 @@ import os
 import sys
 from os import path
 from optparse import OptionParser
-from subprocess import Popen
+from subprocess import Popen, PIPE
 
 import rvirtualenv
 from rvirtualenv.copy import copy
@@ -42,6 +42,11 @@ def get_base():
     '''
     return path.abspath(path.join(path.dirname(rvirtualenv.__file__), path.pardir))
 
+def run_command(cmd):
+    shell = sys.platform != 'win32'
+    p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=shell)
+    return map(lambda b: b.decode(sys.stdout.encoding or 'UTF-8'), p.communicate())
+
 def create_subprocess(python, venv, sitepackages, prompt):
     '''
     install rvirtualenv with given interpreter
@@ -49,9 +54,7 @@ def create_subprocess(python, venv, sitepackages, prompt):
     cmd = ('''%s -c "import sys; sys.path.insert(0, %r); '''
            '''from rvirtualenv import create; create(%r, %s, %r)"''') % \
             (python, get_base(), venv, sitepackages, prompt)
-    shell = sys.platform != 'win32'
-    p = Popen(cmd, shell=shell)
-    return os.waitpid(p.pid, 0)[1]
+    return run_command(cmd)
 
 def create(name, sitepackages, prompt):
     '''
