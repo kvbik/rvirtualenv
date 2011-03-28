@@ -123,6 +123,17 @@ see http://github.com/kvbik/rvirtualenv
 changelog
 ---------
 
+0.3.x
+~~~~~
+
+aka branch `releases/rvirtualenv-0.3`__
+
+__ https://github.com/kvbik/rvirtualenv/tree/releases/rvirtualenv-0.3
+
+* implemented cmd-line virtualenv compatible options
+  (``--no-site-packages``, ``--python``, ``--prompt``)
+* no site packages option for pythonrc 
+
 0.3.0
 ~~~~~
 
@@ -139,6 +150,10 @@ changelog
 
 0.2.x
 ~~~~~
+
+aka branch `releases/rvirtualenv-0.2`__
+
+__ https://github.com/kvbik/rvirtualenv/tree/releases/rvirtualenv-0.2
 
 * installing extensions into virtual environment works
 * not released, but merged to 0.3
