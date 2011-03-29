@@ -1,18 +1,18 @@
 
-test for install with pip and not uninstalling
-some sys (previous venv) package
 
-test for building something binary
+* run_command cleanup and tests
 
 
-------------
+--------------------
 
-for next release:
+* test for install with pip and not uninstalling
+  some sys (previous venv) package
 
-* source bin/activate
-  almost ready, as well on windows but there is still one test failing
-* python3 support (thanks al3x)
-  works, but as there are still so few packages, it was tricky to run tests
+* test for building something binary
+
+
+--------------------
+
 * virtualenv inheritance
   if you create one venv inside another it should take precedence
   not ready yet, try:
@@ -24,7 +24,7 @@ for next release:
   .. i repaired this one, but sys.path is ugly sometimes now..
 
 
-------------
+--------------------
 
 * investigate and improve site.py execution
 
@@ -35,4 +35,5 @@ for next release:
 * docs improvement with @carljm
 
 * ...
+
 
