@@ -1,6 +1,14 @@
 
 
 * run_command cleanup and tests
+  test run_command
+  use run_command from rvirtualenv in tests
+  generate.run_setup VS run_command
+
+* use os.pathsep variable in python.py
+
+* system-wide installed rvirtualenv does not work
+  at least on debian
 
 
 --------------------
