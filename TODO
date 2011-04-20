@@ -10,6 +10,10 @@
 * system-wide installed rvirtualenv does not work
   at least on debian
 
+* data files for some packages (they fidling with schemas in setup.py?)
+  django, django_extensions, djcelery, kombu
+  and how about man for nosetests, share for pycurl, include for greenlet
+
 
 --------------------
 
