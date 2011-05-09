@@ -130,10 +130,13 @@ aka branch `releases/rvirtualenv-0.3`__
 
 __ https://github.com/kvbik/rvirtualenv/tree/releases/rvirtualenv-0.3
 
+0.3.1
+~~~~~
+
 * implemented cmd-line virtualenv compatible options
   (``--no-site-packages``, ``--python``, ``--prompt``)
 * no site packages option for pythonrc 
-* non python data installed to python package (bugfix from `0.3.0`_)
+* non python data installed to python package (fixed bug introduced in `0.3.0`_)
 
 0.3.0
 ~~~~~
