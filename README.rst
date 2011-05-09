@@ -133,6 +133,7 @@ __ https://github.com/kvbik/rvirtualenv/tree/releases/rvirtualenv-0.3
 * implemented cmd-line virtualenv compatible options
   (``--no-site-packages``, ``--python``, ``--prompt``)
 * no site packages option for pythonrc 
+* non python data installed to python package (bugfix from `0.3.0`_)
 
 0.3.0
 ~~~~~
