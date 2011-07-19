@@ -2,6 +2,8 @@
 some more todos
 ---------------
 
+ * add logging
+
  * clean up ``run_command`` (in ``rvirtualenv``, ``tests.test_rvirtualenv``)
    and use it for ``rvirtualenv.generate.run_setup``
 
