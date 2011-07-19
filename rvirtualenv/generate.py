@@ -35,11 +35,8 @@ def generate(where, layout=None, sitepackages=True, prompt=None):
     '''
     create dirs and files after virtualenv dir itself is prepared
     '''
-    base = path.dirname(rvirtualenv.__file__)
-    inst = path.join(base, 'template', 'inst')
-
     generate_pythonrc_stuff(where, layout, sitepackages, prompt)
-    install_venv_keep_package(where, inst)
+    install_venv_keep_package(where, path.join(where, 'src', 'rvirtualenvkeep'))
 
 def install_venv_keep_package(venv_base, install_dir):
     '''
