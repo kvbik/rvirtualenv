@@ -113,7 +113,6 @@ you can use the `issue tracker`__ for more, but most painful bugs are here
  * test building and installing some c extension
  * test install tools (``pip``, ``easy_install`` and others)
  * better virtualenv inheritance (and more virtualenvs defined on `pythonpath`)
- * once ``distutils.install`` command is monkey-patched, do the same for ``setuptools.develop``
 
 __ https://github.com/kvbik/rvirtualenv/issues
 
