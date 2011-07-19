@@ -8,7 +8,7 @@ import rvirtualenv
 from rvirtualenv.rvirtualenvinstall.scheme import guess_scheme
 
 
-def run_setup(base, prefix):
+def run_setup(pythonpath, install_dir):
     '''
     install couple of helper modules via distutils
     because it creates its directory (via the correct schema)
@@ -16,10 +16,10 @@ def run_setup(base, prefix):
     it must be called in subprocess
     because of possible setuptools monkeypatching
     '''
-    os.environ['PYTHONPATH'] = prefix
+    os.environ['PYTHONPATH'] = pythonpath
     install = [
         '"%s"' % sys.executable,
-        path.join(base, 'setup.py'),
+        path.join(install_dir, 'setup.py'),
         'install',
     ]
     install = ' '.join(install)
@@ -45,7 +45,7 @@ def install_venv_keep_package(venv_base, install_dir):
     '''
     install setup.py via distutils
     '''
-    run_setup(install_dir, venv_base)
+    run_setup(venv_base, install_dir)
 
 def generate_pythonrc_stuff(venv_base, layout, sitepackages, prompt):
     '''
