@@ -106,11 +106,15 @@ main reasons why this package came into existence:
 todo
 ----
 
-it does not have all the features, that ian's virtualenv has,
-because i don't know, which one of them are important..
+you can use the `issue tracker`__ for more, but most painful bugs are here
 
-``boot scripts`` even ian does not like very much and i think
-there should be some init scripts only or installation of some package should be called.
+ * system-wide installed rvirtualenv does not work
+   - at least on debian
+ * test building and installing some c extension
+ * test install tools (``pip``, ``easy_install`` and others)
+ * better virtualenv inheritance (and more virtualenvs defined on `pythonpath`)
+
+__ https://github.com/kvbik/rvirtualenv/issues
 
 development
 -----------
