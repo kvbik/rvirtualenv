@@ -6,7 +6,6 @@
 /tests/installs/venvtest-setuptools/VEnvTest.egg-info/
 /tests/installs/venvtest-setuptools/build/
 /tests/installs/venvtest-setuptools/dist/
-/rvirtualenv/template/inst/build/
 
 /setuptools_dummy-*.egg/
 

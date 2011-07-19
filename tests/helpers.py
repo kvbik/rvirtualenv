@@ -10,6 +10,9 @@ import rvirtualenv
 
 class InTempTestCase(TestCase):
     def setUp(self):
+        # unittest limit
+        self.maxDiff = None
+
         # store curr path
         self.oldcwd = os.getcwd()
 
