@@ -2,6 +2,10 @@
 some more todos
 ---------------
 
+ * find the difference between pip installed and setup.py installed rvirtualenv -
+   - all the \*.py files are executable in the second case on debian etch
+   probably some distribute (setuptools fork) behaviour
+
  * add logging
 
  * clean up ``run_command`` (in ``rvirtualenv``, ``tests.test_rvirtualenv``)
