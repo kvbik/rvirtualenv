@@ -106,11 +106,13 @@ main reasons why this package came into existence:
 todo
 ----
 
-you can use the `issue tracker`__ for more, but most painful bugs are here
+you can use the `issue tracker`__ for more (or in `TODO.rst` in this repo)
+but some of the long term goals are here
 
  * test building and installing some c extension
  * test install tools (``pip``, ``easy_install`` and others)
- * better virtualenv inheritance (and more virtualenvs defined on `pythonpath`)
+ * better virtualenv inheritance
+   (and handle more virtualenvs defined on ``pythonpath``)
 
 __ https://github.com/kvbik/rvirtualenv/issues
 
