@@ -108,8 +108,6 @@ todo
 
 you can use the `issue tracker`__ for more, but most painful bugs are here
 
- * system-wide installed rvirtualenv does not work
-   - at least on debian
  * test building and installing some c extension
  * test install tools (``pip``, ``easy_install`` and others)
  * better virtualenv inheritance (and more virtualenvs defined on `pythonpath`)
@@ -130,6 +128,9 @@ changelog
 aka branch `releases/rvirtualenv-0.3`__
 
 __ https://github.com/kvbik/rvirtualenv/tree/releases/rvirtualenv-0.3
+
+* system-wide installed rvirtualenv does work and creates virtualenvs correctly
+  - there were issues with read only fs for non privileged users
 
 0.3.1
 ~~~~~
