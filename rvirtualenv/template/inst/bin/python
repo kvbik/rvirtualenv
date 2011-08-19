@@ -2,5 +2,5 @@
 
 p=`dirname $0`
 path=`cd $p; pwd`
-${path}/python.py "$@"
+exec ${path}/python.py "$@"
 
