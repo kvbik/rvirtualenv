@@ -2,6 +2,9 @@
 some more todos
 ---------------
 
+ * do not fork so many processes, try to exec script in python
+   something like ``python -c '__file__="neco.py"; execfile("neco.py")'`` (eg in ``pip/req.py``)
+
  * find the difference between pip installed and setup.py installed rvirtualenv -
    - all the \*.py files are executable in the second case on debian etch
    probably some distribute (setuptools fork) behaviour
