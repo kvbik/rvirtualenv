@@ -15,7 +15,7 @@ works with python3, pypy
 install
 -------
 
-you can install this package from pypi::
+you can `install this package from pypi`_::
 
   pip install RVirtualEnv
 
@@ -26,6 +26,8 @@ you can install this package from pypi::
   git clone http://github.com/kvbik/rvirtualenv
 
 you should definitely `try development version`__
+
+.. _install this package from pypi: http://pypi.python.org/pypi/RVirtualEnv
 
 __ development_
 
