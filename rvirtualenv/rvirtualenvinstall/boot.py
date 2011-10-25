@@ -1,8 +1,10 @@
 import sys
 from os import path
 
-import rvirtualenvinstall.install
-from rvirtualenvinstall import scheme
+from rvirtualenvinstall import (
+    scheme,
+    install,
+)
 import pythonrc
 
 
@@ -24,4 +26,6 @@ def boot():
 
     scheme.add_to_path(getattr(pythonrc, 'extra_paths', []))
     scheme.add_to_path(this_site_packages)
+
+    install.monkeypatch()
 

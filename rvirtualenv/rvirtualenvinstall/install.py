@@ -22,6 +22,7 @@ class install(_install):
         else:
             self.install_lib = self.install_purelib
 
-# monkey patch for distutils
-distutils.command.install.install = install
+def monkeypatch():
+    "monkey patch for distutils install command"
+    distutils.command.install.install = install
 
