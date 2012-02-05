@@ -6,6 +6,7 @@ and run system wide python instance
 '''
 
 import os, sys
+from os import path
 from os.path import join, dirname, pardir, abspath
 
 
@@ -21,8 +22,7 @@ def inject_pythonpath():
     '''
     insert virtualevn path into pythonpath
     '''
-    pathdelim = sys.platform == 'win32' and ';' or ':'
-    pypath = os.environ.get('PYTHONPATH', '').split(pathdelim)
+    pypath = os.environ.get('PYTHONPATH', '').split(path.pathsep)
     thispath = get_this_path()
     try:
         pypath.remove('')
@@ -30,7 +30,7 @@ def inject_pythonpath():
     except ValueError:
         pass
     pypath.insert(0, thispath)
-    os.environ['PYTHONPATH'] = pathdelim.join(pypath)
+    os.environ['PYTHONPATH'] = path.pathsep.join(pypath)
 
 def prepare_command(argv=[]):
     '''
