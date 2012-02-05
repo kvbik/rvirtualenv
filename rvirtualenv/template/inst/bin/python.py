@@ -32,26 +32,25 @@ def inject_pythonpath():
     pypath.insert(0, thispath)
     os.environ['PYTHONPATH'] = path.pathsep.join(pypath)
 
-def prepare_command(argv=[]):
+def prepare_argv(argv=[]):
     '''
-    prepare command to run
+    prepare argv to run
+      * windows platform needs add quotes around arguments with spaces
     '''
-    cmd = [sys.executable] + argv
-    cmd = map(lambda s: '"%s"' % s.replace('"', '\\"'), cmd)
-    cmdstr = ' '.join(cmd)
-    return cmdstr
+    def q(s):
+        return '"%s"' % s.replace('"', '\\"')
+    if sys.platform == 'win32':
+        argv = map(q, argv)
+    return tuple(argv)
 
-def run(cmd):
-    os.system(cmd)
+def run(argv):
+    os.execvp(sys.executable, argv)
 
 def main(argv=None):
     if argv is None:
-        argv = sys.argv[1:]
+        argv = sys.argv
     inject_pythonpath()
-    cmd = prepare_command(argv)
-    if sys.platform == 'win32':
-        cmd = '"%s"' % cmd
-    run(cmd)
+    run(prepare_argv(argv))
 
 if __name__ == '__main__':
     main()
