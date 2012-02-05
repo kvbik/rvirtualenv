@@ -5,10 +5,23 @@ from os import path
 from tests.helpers import InTempTestCase, store_directory_structure
 
 import rvirtualenv
-from rvirtualenv.copy import copy
+from rvirtualenv.copy import copy, ignore
 
 
 class TestCopy(InTempTestCase):
+    def test_ignore(self):
+        names = [
+            'abc.txt',
+            'koko/koko.pyc',
+            'keke/__pycache__',
+            'def.py',
+        ]
+        expected = set([
+            'koko/koko.pyc',
+            'keke/__pycache__',
+        ])
+        self.failUnlessEqual(expected, ignore(None, names))
+
     def test_whole_copy(self):
         base = path.dirname(rvirtualenv.__file__)
 
@@ -20,7 +33,6 @@ class TestCopy(InTempTestCase):
         # filter only rvirtualenvinstall
         b = [ i for i in b if 'rvirtualenvinstall' in i[0] ]
         # extract not wanted
-        b = [ i for i in b if '__pycache__' not in i[0] ]
         b = [ i for i in b if 'template' not in i[0] ]
 
         os.chdir(path.join(base, 'template'))
@@ -32,6 +44,9 @@ class TestCopy(InTempTestCase):
         d = [(path.join('.', 'src'), None)]
 
         expected = sorted(a+b+c+d)
+        # extract not wanted - aka those that are ignored
+        expected = [ i for i in expected if '__pycache__' not in i[0] ]
+        expected = [ i for i in expected if not i[0].endswith('pyc') ]
 
         copy(self.virtualenv)
 
