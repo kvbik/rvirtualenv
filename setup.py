@@ -28,9 +28,6 @@ setup(
     },
     zip_safe = False,
     include_package_data = True,
-    setup_requires = [
-        'setuptools_dummy',
-    ],  
     test_suite = "tests.test_all.runtests",
     classifiers = [
         "Development Status :: 4 - Beta",

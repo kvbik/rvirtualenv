@@ -1,0 +1,3 @@
+recursive-include rvirtualenv *
+global-exclude *.py[co]
+include README.rst TODO.rst
