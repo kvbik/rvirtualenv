@@ -1,4 +1,20 @@
 
+------------------------
+
+rvirtualenv
+~~~~~~~~~~~
+
+vytvorit rvirtualenv.main
+  presunout kod z __init__ a procistit, aby copy&spol bylo rozumne importovatelne
+
+rvirtualenv.utils
+  nasypat tam helpers jako: basepath (rvirtualenv.__file__), is_windows, apod
+
+nosetests
+  monkeypatched sys.stdout a encoding
+
+
+------------------
 
 -- zpetne kompatibilni (2 a 3) python kod
 http://www.voidspace.org.uk/python/articles/porting-mock-to-python-3.shtml
