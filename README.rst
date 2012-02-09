@@ -76,11 +76,6 @@ you can run any of these commands:
  * ``nosetests``
  * ``./tests/test_all.py``
 
-in the ``setup.py`` case you just have to wait a little, until setuptools_dummy_ are downloaded,
-because it is a build dependency.
-
-.. _setuptools_dummy: http://pypi.python.org/pypi/setuptools_dummy/
-
 package was tested on:
 
  * archlinux with python 3.2
@@ -133,8 +128,22 @@ aka branch `releases/rvirtualenv-0.3`__
 
 __ https://github.com/kvbik/rvirtualenv/tree/releases/rvirtualenv-0.3
 
+* a subprocess call in ``python.py`` replaced with ``os.execvp``, which means less forks
+  and `gunicorn`_ via `supervisor`_ should work when called via our ``python`` wrapper
+  (see `issue #2`_ for more)
 * system-wide installed rvirtualenv does work and creates virtualenvs correctly
   - there were issues with read only fs for non privileged users
+* repository cleanup before `upload to pypi`_, so it should be installable
+  (without any notes from build env - like ``#!/usr/bin/python2`` in `issue #1`_)
+* `setuptools_dummy`_ replaced in favour of plain `MANIFEST.in`_
+
+.. _setuptools_dummy: http://pypi.python.org/pypi/setuptools_dummy/
+.. _MANIFEST.in: http://docs.python.org/distutils/sourcedist.html#the-manifest-in-template
+.. _upload to pypi: http://pypi.python.org/pypi/RVirtualEnv
+.. _issue #1: https://github.com/kvbik/rvirtualenv/issues/1
+.. _gunicorn: http://gunicorn.org/
+.. _supervisor: http://supervisord.org/
+.. _issue #2: https://github.com/kvbik/rvirtualenv/pull/2
 
 0.3.1
 ~~~~~
