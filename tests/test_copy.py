@@ -5,7 +5,7 @@ from os import path
 from tests.helpers import InTempTestCase, store_directory_structure
 
 import rvirtualenv
-from rvirtualenv.copy import copy, ignore
+from rvirtualenv.copy import copy, ignore, remove_ignored
 
 
 class TestCopy(InTempTestCase):
@@ -21,6 +21,25 @@ class TestCopy(InTempTestCase):
             'keke/__pycache__',
         ])
         self.failUnlessEqual(expected, ignore(None, names))
+
+    def test_remove_ignored(self):
+        # create some dummy dir structures
+        for i in ('FROM', 'TO'):
+            os.makedirs(path.join(self.directory, i))
+            os.makedirs(path.join(self.directory, i, '__pycache__'))
+            f = open(path.join(self.directory, i, 'test.pyc'), 'w'); f.close()
+            f = open(path.join(self.directory, i, 'test.py'), 'w'); f.close()
+        # call our logic
+        remove_ignored(path.join(self.directory, 'FROM'), path.join(self.directory, 'TO'), ignore)
+        # some files should be removed
+        self.assertFalse(path.exists(path.join(self.directory, 'TO', '__pycache__')))
+        self.assertFalse(path.exists(path.join(self.directory, 'TO', 'test.pyc')))
+        # other should stay
+        self.assertTrue(path.exists(path.join(self.directory, 'TO', 'test.py')))
+        # and originals must not be touched
+        self.assertTrue(path.exists(path.join(self.directory, 'FROM', '__pycache__')))
+        self.assertTrue(path.exists(path.join(self.directory, 'FROM', 'test.pyc')))
+        self.assertTrue(path.exists(path.join(self.directory, 'FROM', 'test.py')))
 
     def test_whole_copy(self):
         base = path.dirname(rvirtualenv.__file__)
