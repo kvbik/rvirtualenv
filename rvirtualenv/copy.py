@@ -26,7 +26,7 @@ def remove_ignored(src, dst, ignore=None):
             shutil.rmtree(i.replace(src, dst), True)
 
 def copytree(src, dst, symlinks=False, ignore=None):
-    shutil.copytree(src, dst, symlinks, ignore)
+    shutil.copytree(src, dst, symlinks)
     remove_ignored(src, dst, ignore)
 
 def copy(where):
