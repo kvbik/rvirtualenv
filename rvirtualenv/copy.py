@@ -1,6 +1,6 @@
 
-from os.path import join, dirname
-from os import makedirs, walk
+from os.path import join, dirname, isfile
+from os import makedirs, walk, remove
 import shutil
 
 import rvirtualenv
@@ -23,7 +23,11 @@ def remove_ignored(src, dst, ignore=None):
         if ignore is not None:
             ignored = ignore(base.replace(dst, src), dirs+files)
         for i in ignored:
-            shutil.rmtree(i.replace(src, dst), True)
+            f = join(base, i)
+            if not isfile(f):
+                shutil.rmtree(f, True)
+            else:
+                remove(f)
 
 def copytree(src, dst, symlinks=False, ignore=None):
     shutil.copytree(src, dst, symlinks)
