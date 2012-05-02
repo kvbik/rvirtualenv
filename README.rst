@@ -128,6 +128,11 @@ aka branch `releases/rvirtualenv-0.3`__
 
 __ https://github.com/kvbik/rvirtualenv/tree/releases/rvirtualenv-0.3
 
+0.3.2
+~~~~~
+
+* sorry, this version does not work in interactive mode on windows, we will try hard to
+  solve bill's issue
 * a subprocess call in ``python.py`` replaced with ``os.execvp``, which means less forks
   and `gunicorn`_ via `supervisor`_ should work when called via our ``python`` wrapper
   (see `issue #2`_ for more)
