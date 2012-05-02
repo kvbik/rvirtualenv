@@ -24,7 +24,7 @@ setup(
     entry_points = {
         'console_scripts': [
             'rvirtualenv = rvirtualenv:main',
-        ],  
+        ],
     },
     zip_safe = False,
     include_package_data = True,
@@ -38,5 +38,5 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
     ]
-)   
+)
 
